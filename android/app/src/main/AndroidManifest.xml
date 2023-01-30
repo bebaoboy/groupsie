@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.groupsie">
+    package="com.bebaoboy.groupsie_chatapp">
    <application
-        android:label="groupsie"
+        android:label="GroupSie Chat App"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "293334776527",
+    "project_id": "groupsie-chatapp",
+    "storage_bucket": "groupsie-chatapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293334776527:android:f50624c74dbae25f4055ba",
+        "android_client_info": {
+          "package_name": "com.bebaoboy.groupsie_chatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293334776527-hfpm71c0ps53l09nrv8utt6561dneugb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bebaoboy.groupsie_chatapp",
+            "certificate_hash": "67590f586703f1e941241dcbd4c995279f2d313e"
+          }
+        },
+        {
+          "client_id": "293334776527-0q01e0c83tsrmmsn0cp8p79btv4i8nuq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeaNkeJ_EI98JH_pxixxjYv5bjeHggrGg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293334776527-0q01e0c83tsrmmsn0cp8p79btv4i8nuq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
