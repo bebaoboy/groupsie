@@ -1,4 +1,4 @@
-package com.example.groupsie
+package com.bebaoboy.groupsie_chatapp
 
 import io.flutter.embedding.android.FlutterActivity
 
