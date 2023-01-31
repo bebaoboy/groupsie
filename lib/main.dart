@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:groupsie/helper/helper_function.dart';
 import 'package:groupsie/pages/auth/login_page.dart';
 import 'package:groupsie/pages/home_page.dart';
@@ -66,8 +67,13 @@ class _MyAppState extends State<MyApp> {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.indigo,
+        textTheme: GoogleFonts.dmSansTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
-      home: _isSignedIn ? const HomePage(title: 'Homepage') :const LoginPage(title: 'Login'),
+      home: _isSignedIn
+          ? const HomePage()
+          : const LoginPage(),
       debugShowCheckedModeBanner: false,
     );
   }

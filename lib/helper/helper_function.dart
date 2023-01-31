@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HelperFunctions {
@@ -12,5 +13,18 @@ class HelperFunctions {
   static Future<bool?> getUserLoggedInStatus() async {
     SharedPreferences sf = await SharedPreferences.getInstance();
     return sf.getBool(userLoggedInKey);
+  }
+
+  static void nextScreen(context, page) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => page));
+  }
+
+  static void nextScreenReplacement(context, page) {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => page));
+  }
+
+  static void lastScreen(BuildContext context) {
+    Navigator.pop(context);
   }
 }

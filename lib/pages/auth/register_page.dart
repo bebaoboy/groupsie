@@ -4,21 +4,21 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/helper_function.dart';
-import 'package:groupsie/pages/auth/register_page.dart';
+import 'package:groupsie/pages/auth/login_page.dart';
 import 'package:groupsie/shared/strings.dart';
 import 'package:groupsie/style/login_page_params.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
-  final String title = "Login";
+  final String title = "Register";
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final formKey = GlobalKey<FormState>();
   final emailKey = GlobalKey<FormFieldState>();
   final passwordKey = GlobalKey<FormFieldState>();
@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
-              horizontal: hPadding, vertical: vPadding),
+              horizontal: hPadding, vertical: vPadding * 2),
           child: Form(
             key: formKey,
             child: Column(
@@ -61,22 +61,16 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 const Text(
-                  Strings.appName,
+                  Strings.registerText,
                   style: titleStyle,
                 ),
                 const SizedBox(
-                  height: titleBoxSize,
+                  height: titleBoxSize * 5,
                 ),
-                const Text(
-                  Strings.appPrompt,
-                  style: promptStyle,
-                ),
-                kIsWeb
-                    ? Image.asset(
-                        Strings.loginPageImg,
-                        width: 400,
-                      )
-                    : Image.asset(Strings.loginPageImg),
+                // const Text(
+                //   Strings.registerText,
+                //   style: promptStyle,
+                // ),
                 TextFormField(
                   key: emailKey,
                   focusNode: emailFocus,
@@ -92,10 +86,35 @@ class _LoginPageState extends State<LoginPage> {
                   height: titleBoxSize * 2,
                 ),
                 TextFormField(
+                  obscureText: true,
+                  decoration: textInputDecoration.copyWith(
+                    labelText: Strings.username,
+                    prefixIcon: passwordIcon,
+                  ),
+                  style: const TextStyle(fontSize: inputTextSize),
+                  onChanged: (value) => info.onPasswordChange(value),
+                ),
+
+                const SizedBox(
+                  height: titleBoxSize * 2,
+                ),
+                TextFormField(
                   key: passwordKey,
                   obscureText: true,
                   decoration: textInputDecoration.copyWith(
                     labelText: Strings.password,
+                    prefixIcon: passwordIcon,
+                  ),
+                  style: const TextStyle(fontSize: inputTextSize),
+                  onChanged: (value) => info.onPasswordChange(value),
+                ),
+                const SizedBox(
+                  height: titleBoxSize * 2,
+                ),
+                TextFormField(
+                  obscureText: true,
+                  decoration: textInputDecoration.copyWith(
+                    labelText: Strings.confirmPassword,
                     prefixIcon: passwordIcon,
                   ),
                   style: const TextStyle(fontSize: inputTextSize),
@@ -113,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                       },
                       // style: loginButtonStyle,
                       child: const Text(
-                        Strings.signInText,
+                        Strings.registerText,
                         style: loginButtonTextStyle,
                       )),
                 ),
@@ -121,16 +140,14 @@ class _LoginPageState extends State<LoginPage> {
                   height: titleBoxSize,
                 ),
                 Text.rich(TextSpan(
-                  text: "${Strings.registerPrompt} ",
+                  text: "${Strings.loginPrompt} ",
                   children: <TextSpan>[
                     TextSpan(
-                        text: Strings.registerActionText,
+                        text: Strings.loginActionText,
                         style: registerActionStyle,
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            HelperFunctions.nextScreen(
-                                context,
-                                const RegisterPage());
+                            HelperFunctions.lastScreen(context);
                           }),
                   ],
                   style: registerPromptStyle,
