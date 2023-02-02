@@ -16,7 +16,11 @@ class Strings {
   static const String loginActionText = "Log in now!";
 
   static const String username = "Username";
+  static const String usernameEmptyError = "Username cannot be empty!";
+
   static const String confirmPassword = "Confirm password";
+  static const String passwordTooShort = "Password must be 6 characters or more!";
+  static const String passwordConfirmError = "Password must be the same as above!";
 
   // Images
   static const String loginPageImg = "assets/titleImg.png";

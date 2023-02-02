@@ -57,5 +57,6 @@ const registerActionStyle = TextStyle(
 // icons
 const emailIcon = Icon(Icons.email_rounded, color: Constants.mainColor);
 const passwordIcon = Icon(Icons.lock_clock_rounded, color: Constants.mainColor);
+const usernameIcon = Icon(Icons.contacts, color: Constants.mainColor);
 
 const bgColor = Constants.mainColor;

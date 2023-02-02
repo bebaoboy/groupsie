@@ -4,10 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/helper_function.dart';
-import 'package:groupsie/pages/auth/login_page.dart';
 import 'package:groupsie/shared/strings.dart';
 import 'package:groupsie/style/login_page_params.dart';
-import 'package:groupsie/helper/login_page_helper.dart';
+import 'package:groupsie/helper/register_page_helper.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -23,16 +22,22 @@ class _RegisterPageState extends State<RegisterPage> {
   final emailKey = GlobalKey<FormFieldState>();
   final passwordKey = GlobalKey<FormFieldState>();
 
-  final info = LoginInfo();
-  late FocusNode emailFocus;
+  final info = RegisterInfo();
+  late FocusNode emailFocus, passwordFocus;
 
   @override
   void initState() {
     super.initState();
     emailFocus = FocusNode();
+    passwordFocus = FocusNode();
     emailFocus.addListener(() {
       if (!emailFocus.hasFocus) {
         emailKey.currentState!.validate();
+      }
+    });
+    passwordFocus.addListener(() {
+      if (!passwordFocus.hasFocus) {
+        passwordKey.currentState!.validate();
       }
     });
   }
@@ -89,7 +94,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   obscureText: true,
                   decoration: textInputDecoration.copyWith(
                     labelText: Strings.username,
-                    prefixIcon: passwordIcon,
+                    prefixIcon: usernameIcon,
                   ),
                   style: const TextStyle(fontSize: inputTextSize),
                   onChanged: (value) => info.onPasswordChange(value),
@@ -100,6 +105,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 TextFormField(
                   key: passwordKey,
+                  focusNode: passwordFocus,
                   obscureText: true,
                   decoration: textInputDecoration.copyWith(
                     labelText: Strings.password,
@@ -107,18 +113,21 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   style: const TextStyle(fontSize: inputTextSize),
                   onChanged: (value) => info.onPasswordChange(value),
+                  validator:(value) => info.passwordValidate(),
                 ),
                 const SizedBox(
                   height: titleBoxSize * 2,
                 ),
                 TextFormField(
                   obscureText: true,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: textInputDecoration.copyWith(
                     labelText: Strings.confirmPassword,
                     prefixIcon: passwordIcon,
                   ),
                   style: const TextStyle(fontSize: inputTextSize),
-                  onChanged: (value) => info.onPasswordChange(value),
+                  onChanged: (value) => info.onPasswordChange2(value),
+                  validator:(value) => info.passwordConfirmValidate(),
                 ),
                 const SizedBox(
                   height: titleBoxSize * 2,
