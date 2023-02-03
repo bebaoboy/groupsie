@@ -34,6 +34,7 @@ dependencies:
   firebase_core: ^2.4.1
   flutter:
     sdk: flutter
+  flutter_native_splash: ^2.2.17
   google_fonts: ^4.0.1
   shared_preferences: ^2.0.17
 
@@ -41,6 +42,10 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  image: assets/titleImg.png
+  color: "#FFFFFF"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

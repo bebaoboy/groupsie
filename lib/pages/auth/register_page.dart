@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/helper_function.dart';
+import 'package:groupsie/shared/constants.dart';
+import 'package:groupsie/shared/global.dart';
 import 'package:groupsie/shared/strings.dart';
 import 'package:groupsie/style/login_page_params.dart';
 import 'package:groupsie/helper/register_page_helper.dart';
@@ -24,6 +26,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final info = RegisterInfo();
   late FocusNode emailFocus, passwordFocus;
+
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -55,117 +59,143 @@ class _RegisterPageState extends State<RegisterPage> {
       //   backgroundColor: bgColor,
       // ),
       // body: Center(child: Text(widget.title)),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: hPadding, vertical: vPadding * 2),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  Strings.registerText,
-                  style: titleStyle,
-                ),
-                const SizedBox(
-                  height: titleBoxSize * 5,
-                ),
-                // const Text(
-                //   Strings.registerText,
-                //   style: promptStyle,
-                // ),
-                TextFormField(
-                  key: emailKey,
-                  focusNode: emailFocus,
-                  decoration: textInputDecoration.copyWith(
-                    labelText: Strings.email,
-                    prefixIcon: emailIcon,
-                  ),
-                  style: const TextStyle(fontSize: inputTextSize),
-                  onChanged: (value) => info.onEmailChange(value),
-                  validator: (value) => info.emailValidate(),
-                ),
-                const SizedBox(
-                  height: titleBoxSize * 2,
-                ),
-                TextFormField(
-                  obscureText: true,
-                  decoration: textInputDecoration.copyWith(
-                    labelText: Strings.username,
-                    prefixIcon: usernameIcon,
-                  ),
-                  style: const TextStyle(fontSize: inputTextSize),
-                  onChanged: (value) => info.onPasswordChange(value),
-                ),
-
-                const SizedBox(
-                  height: titleBoxSize * 2,
-                ),
-                TextFormField(
-                  key: passwordKey,
-                  focusNode: passwordFocus,
-                  obscureText: true,
-                  decoration: textInputDecoration.copyWith(
-                    labelText: Strings.password,
-                    prefixIcon: passwordIcon,
-                  ),
-                  style: const TextStyle(fontSize: inputTextSize),
-                  onChanged: (value) => info.onPasswordChange(value),
-                  validator:(value) => info.passwordValidate(),
-                ),
-                const SizedBox(
-                  height: titleBoxSize * 2,
-                ),
-                TextFormField(
-                  obscureText: true,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: textInputDecoration.copyWith(
-                    labelText: Strings.confirmPassword,
-                    prefixIcon: passwordIcon,
-                  ),
-                  style: const TextStyle(fontSize: inputTextSize),
-                  onChanged: (value) => info.onPasswordChange2(value),
-                  validator:(value) => info.passwordConfirmValidate(),
-                ),
-                const SizedBox(
-                  height: titleBoxSize * 2,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        formKey.currentState!.validate();
-                        log("Email = ${info.email}, Pass = ${info.password}");
-                      },
-                      // style: loginButtonStyle,
-                      child: const Text(
+      body: !_isLoading
+          ? SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: hPadding, vertical: vPadding * 2),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      const Text(
                         Strings.registerText,
-                        style: loginButtonTextStyle,
+                        style: titleStyle,
+                      ),
+                      const SizedBox(
+                        height: titleBoxSize * 5,
+                      ),
+                      // const Text(
+                      //   Strings.registerText,
+                      //   style: promptStyle,
+                      // ),
+                      TextFormField(
+                        key: emailKey,
+                        focusNode: emailFocus,
+                        decoration: textInputDecoration.copyWith(
+                          labelText: Strings.email,
+                          prefixIcon: emailIcon,
+                        ),
+                        style: const TextStyle(fontSize: inputTextSize),
+                        onChanged: (value) => info.onEmailChange(value),
+                        validator: (value) => info.emailValidate(),
+                      ),
+                      const SizedBox(
+                        height: titleBoxSize * 2,
+                      ),
+                      TextFormField(
+                        decoration: textInputDecoration.copyWith(
+                          labelText: Strings.username,
+                          prefixIcon: usernameIcon,
+                        ),
+                        style: const TextStyle(fontSize: inputTextSize),
+                        onChanged: (value) => info.onUsernameChange(value),
+                      ),
+
+                      const SizedBox(
+                        height: titleBoxSize * 2,
+                      ),
+                      TextFormField(
+                        key: passwordKey,
+                        focusNode: passwordFocus,
+                        obscureText: true,
+                        decoration: textInputDecoration.copyWith(
+                          labelText: Strings.password,
+                          prefixIcon: passwordIcon,
+                        ),
+                        style: const TextStyle(fontSize: inputTextSize),
+                        onChanged: (value) => info.onPasswordChange(value),
+                        validator: (value) => info.passwordValidate(),
+                      ),
+                      const SizedBox(
+                        height: titleBoxSize * 2,
+                      ),
+                      TextFormField(
+                        obscureText: true,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        decoration: textInputDecoration.copyWith(
+                          labelText: Strings.confirmPassword,
+                          prefixIcon: passwordIcon,
+                        ),
+                        style: const TextStyle(fontSize: inputTextSize),
+                        onChanged: (value) => info.onPasswordChange2(value),
+                        validator: (value) => info.passwordConfirmValidate(),
+                      ),
+                      const SizedBox(
+                        height: titleBoxSize * 2,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            onPressed: () async {
+                              log("Email = ${info.email}, Pass = ${info.password}");
+                              if (formKey.currentState!.validate()) {
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                await Global.authService
+                                    .register(email: info.email, password: info.password,
+                                        username: info.username)
+                                    .then((value) {
+                                  if (value.runtimeType is bool && value) {
+                                    // saving the shared preference state
+                                  } else {
+                                    HelperFunctions.showSnackBar(
+                                      context,
+                                      Constants.errorColor,
+                                      value,
+                                    );
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+                                  }
+                                });
+                              }
+                            },
+                            // style: loginButtonStyle,
+                            child: const Text(
+                              Strings.registerText,
+                              style: loginButtonTextStyle,
+                            )),
+                      ),
+                      const SizedBox(
+                        height: titleBoxSize,
+                      ),
+                      Text.rich(TextSpan(
+                        text: "${Strings.loginPrompt} ",
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: Strings.loginActionText,
+                              style: registerActionStyle,
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  HelperFunctions.lastScreen(context);
+                                }),
+                        ],
+                        style: registerPromptStyle,
                       )),
+                    ],
+                  ),
                 ),
-                const SizedBox(
-                  height: titleBoxSize,
-                ),
-                Text.rich(TextSpan(
-                  text: "${Strings.loginPrompt} ",
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: Strings.loginActionText,
-                        style: registerActionStyle,
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            HelperFunctions.lastScreen(context);
-                          }),
-                  ],
-                  style: registerPromptStyle,
-                )),
-              ],
+              ),
+            )
+          : const Center(
+              child: CircularProgressIndicator(
+                color: loadingColor,
+              ),
             ),
-          ),
-        ),
-      ),
     );
   }
 }

@@ -18,7 +18,7 @@ const promptStyle =
     TextStyle(fontSize: titleSize * 0.45, fontWeight: FontWeight.w400);
 
 // input
-const double inputTextSize = 20;
+const double inputTextSize = Constants.standardFontSize;
 const textInputDecoration = InputDecoration(
   errorStyle: TextStyle(fontWeight: FontWeight.bold),
   labelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
@@ -60,3 +60,4 @@ const passwordIcon = Icon(Icons.lock_clock_rounded, color: Constants.mainColor);
 const usernameIcon = Icon(Icons.contacts, color: Constants.mainColor);
 
 const bgColor = Constants.mainColor;
+const loadingColor = Constants.mainColor;

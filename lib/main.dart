@@ -6,10 +6,11 @@ import 'package:groupsie/helper/helper_function.dart';
 import 'package:groupsie/pages/auth/login_page.dart';
 import 'package:groupsie/pages/home_page.dart';
 import 'package:groupsie/shared/constants.dart';
+import 'package:groupsie/shared/global.dart';
 
 import 'shared/Strings.dart';
 
-void main() async {
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (kIsWeb) {
@@ -26,7 +27,13 @@ void main() async {
     await Firebase.initializeApp();
   }
 
+  await splashScreenDelay(null, Constants.splashScreenDuration);
+
   runApp(const MyApp());
+}
+
+Future splashScreenDelay(BuildContext? context, duration) async {
+  await Future.delayed(Duration(seconds: duration));
 }
 
 class MyApp extends StatefulWidget {
@@ -42,6 +49,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    Global();
     getUserLoggedinStatus();
   }
 
@@ -71,9 +79,7 @@ class _MyAppState extends State<MyApp> {
           Theme.of(context).textTheme,
         ),
       ),
-      home: _isSignedIn
-          ? const HomePage()
-          : const LoginPage(),
+      home: _isSignedIn ? const HomePage() : const LoginPage(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -11,6 +11,7 @@ class Strings {
   static const String registerText = "Register";
   static const String registerPrompt = "Don't have an account yet?";
   static const String registerActionText = "Register now!";
+  static const String ok = "OK";
 
   static const String loginPrompt = "Already have an account?";
   static const String loginActionText = "Log in now!";
@@ -24,4 +25,12 @@ class Strings {
 
   // Images
   static const String loginPageImg = "assets/titleImg.png";
+
+  static const String invalidEmail = "Invalid email address!";
+  static const String userDisabled = "Your account has been disabled. Please contact your customer support!";
+  static const String userNotFound = "Account does not exists!";
+  static const String wrongPassword = "Incorrect password!";
+  static const String emailAlreadyInUse = "Account already exists!";
+  static const String weakPassword = "Your password is weak. Try another one!";
+  static const String error = "Some errors happened. Please try again!";
 }

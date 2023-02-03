@@ -8,4 +8,9 @@ class Constants {
 
   static const Color mainColor = Colors.indigo;
   static const Color errorColor = Colors.red;
+
+  static const double standardFontSize = 20;
+  static const double errorFontSize = 14;
+
+  static const int splashScreenDuration = 0;
 }

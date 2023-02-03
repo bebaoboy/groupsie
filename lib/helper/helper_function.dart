@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:groupsie/shared/constants.dart';
+import 'package:groupsie/shared/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HelperFunctions {
@@ -26,5 +28,14 @@ class HelperFunctions {
 
   static void lastScreen(BuildContext context) {
     Navigator.pop(context);
+  }
+
+  static void showSnackBar(context, Color color, message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(message, style: const TextStyle(fontSize: Constants.errorFontSize)),
+      backgroundColor: color,
+      duration: const Duration(seconds: 6),
+      action: SnackBarAction(label: Strings.ok, onPressed: (){}, textColor: Colors.white,),
+    ));
   }
 }
