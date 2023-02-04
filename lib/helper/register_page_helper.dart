@@ -36,7 +36,7 @@ class RegisterInfo {
   }
 
   passwordValidate() {
-    if (password.isNotEmpty && password.length < 6) {
+    if (password.length < 6) {
       return Strings.passwordTooShort;
     }
   }

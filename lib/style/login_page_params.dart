@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:groupsie/shared/constants.dart';
 
 // padding
-const double hPadding = 20, vPadding = 80;
+const double hPadding = 20, vPadding = 80, hPaddingWeb = 150;
 
 // title
 const double titleSize = 40;

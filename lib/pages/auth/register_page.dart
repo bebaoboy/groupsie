@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/helper_function.dart';
+import 'package:groupsie/pages/auth/login_page.dart';
 import 'package:groupsie/shared/constants.dart';
 import 'package:groupsie/shared/global.dart';
 import 'package:groupsie/shared/strings.dart';
@@ -82,6 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       //   style: promptStyle,
                       // ),
                       TextFormField(
+                        initialValue: info.email,
                         key: emailKey,
                         focusNode: emailFocus,
                         decoration: textInputDecoration.copyWith(
@@ -96,6 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         height: titleBoxSize * 2,
                       ),
                       TextFormField(
+                        initialValue: info.username,
                         decoration: textInputDecoration.copyWith(
                           labelText: Strings.username,
                           prefixIcon: usernameIcon,
@@ -146,11 +149,26 @@ class _RegisterPageState extends State<RegisterPage> {
                                   _isLoading = true;
                                 });
                                 await Global.authService
-                                    .register(email: info.email, password: info.password,
+                                    .register(
+                                        email: info.email,
+                                        password: info.password,
                                         username: info.username)
                                     .then((value) {
-                                  if (value.runtimeType is bool && value) {
+                                  if (value == "true") {
                                     // saving the shared preference state
+                                    HelperFunctions.saveUserLoggedInInfo(
+                                        isLoggedIn: false,
+                                        username: info.username,
+                                        email: info.email);
+                                    HelperFunctions.showSnackBarAndGoBack(
+                                      context,
+                                      Constants.doneColor,
+                                      Strings.finishRegister,
+                                      page: const LoginPage(),
+                                    );
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
                                   } else {
                                     HelperFunctions.showSnackBar(
                                       context,

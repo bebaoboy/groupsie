@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:groupsie/shared/strings.dart';
 
 class LoginInfo {
-  String email = "", password = "";
+  bool isLoggedIn = false;
+  String email = "", password = "", username = "";
 
   onEmailChange(value) {
     email = value;

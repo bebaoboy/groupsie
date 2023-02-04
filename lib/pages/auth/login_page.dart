@@ -23,8 +23,10 @@ class _LoginPageState extends State<LoginPage> {
   final emailKey = GlobalKey<FormFieldState>();
   final passwordKey = GlobalKey<FormFieldState>();
 
-  final info = LoginInfo();
+  LoginInfo info = LoginInfo();
   late FocusNode emailFocus;
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -34,6 +36,19 @@ class _LoginPageState extends State<LoginPage> {
       if (!emailFocus.hasFocus) {
         emailKey.currentState!.validate();
       }
+    });
+    checkLoginInfo();
+  }
+
+  checkLoginInfo() async {
+    await HelperFunctions.getUserLoggedInInfo().then((value) {
+      if (value != null) {
+        info = value;
+        setState(() {
+          emailController.text = info.email;
+        });
+      }
+      log(value.toString());
     });
   }
 
@@ -52,8 +67,11 @@ class _LoginPageState extends State<LoginPage> {
       // body: Center(child: Text(widget.title)),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: hPadding, vertical: vPadding),
+          padding: !kIsWeb
+              ? const EdgeInsets.symmetric(
+                  horizontal: hPadding, vertical: vPadding)
+              : const EdgeInsets.symmetric(
+                  horizontal: hPaddingWeb, vertical: vPadding),
           child: Form(
             key: formKey,
             child: Column(
@@ -80,6 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextFormField(
                   key: emailKey,
                   focusNode: emailFocus,
+                  controller: emailController,
                   decoration: textInputDecoration.copyWith(
                     labelText: Strings.email,
                     prefixIcon: emailIcon,
@@ -94,6 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextFormField(
                   key: passwordKey,
                   obscureText: true,
+                  controller: passwordController,
                   decoration: textInputDecoration.copyWith(
                     labelText: Strings.password,
                     prefixIcon: passwordIcon,
@@ -108,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                   width: double.infinity,
                   child: ElevatedButton(
                       onPressed: () {
-                        formKey.currentState!.validate();
+                        // formKey.currentState!.validate();
                         log("Email = ${info.email}, Pass = ${info.password}");
                       },
                       // style: loginButtonStyle,
@@ -129,8 +149,7 @@ class _LoginPageState extends State<LoginPage> {
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
                             HelperFunctions.nextScreen(
-                                context,
-                                const RegisterPage());
+                                context, const RegisterPage());
                           }),
                   ],
                   style: registerPromptStyle,
