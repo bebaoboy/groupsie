@@ -14,13 +14,24 @@ class HelperFunctions {
   static String userEmailKey = "USEREMAILKEY";
 
   static Future<bool> saveUserLoggedInInfo(
-      {required bool isLoggedIn, email, username}) async {
+      {required bool isLoggedIn, email="", username=""}) async {
     final sf = await SharedPreferences.getInstance();
-    final infoJsonified = {
-      'isLoggedIn': isLoggedIn,
-      'username': username,
-      'email': email
-    };
+    final currentInfo = await getUserLoggedInInfo();
+    Map<String, dynamic> infoJsonified;
+    if (currentInfo!.email.isNotEmpty) {
+      infoJsonified = {
+        'isLoggedIn': isLoggedIn,
+        'username': currentInfo.username.isEmpty ? username : currentInfo.username,
+        'email': currentInfo.email
+      };
+    } else {
+      infoJsonified = {
+        'isLoggedIn': isLoggedIn,
+        'username': username,
+        'email': email
+      };
+    }
+
     log("key=${userLoggedInKey}json=${jsonEncode(infoJsonified)}");
     return sf.setString(userLoggedInKey, jsonEncode(infoJsonified));
   }

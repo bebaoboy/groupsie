@@ -33,6 +33,9 @@ class RegisterInfo {
     if (username.isNotEmpty && username.length < 6) {
       return Strings.usernameEmptyError;
     }
+    if (!username.contains(RegExp(r"^[a-zA-Z0-9._-]+$"))) {
+      return Strings.usernameSpecialCharactersError;
+    }
   }
 
   passwordValidate() {

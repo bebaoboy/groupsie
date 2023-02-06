@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:groupsie/helper/helper_function.dart';
 import 'package:groupsie/service/database_service.dart';
 import 'package:groupsie/shared/strings.dart';
 
@@ -8,6 +9,42 @@ class AuthService {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   // login
+  Future login({required String email, required String password}) async {
+    try {
+      late final User? user;
+      if (emailValidate(email) == "username") {
+        final result = await DatabaseService.getUserData(username: email);
+        if (result.docs.length != 0) {
+          user = (await firebaseAuth.signInWithEmailAndPassword(
+                  email: result.docs[0]['email'], password: password))
+              .user;
+        } else {
+          return Strings.userNotFound;
+        }
+      } else {
+        user = (await firebaseAuth.signInWithEmailAndPassword(
+                email: email, password: password))
+            .user;
+      }
+
+      if (user != null) {
+        return "true";
+      }
+      return "false";
+    } on FirebaseAuthException catch (error) {
+      log(error.message!);
+      return determineError(error);
+    }
+  }
+
+  emailValidate(email) {
+    // log("validated");
+    if (RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(email)) {
+      return "email";
+    } else {
+      return "username";
+    }
+  }
 
   // register
   Future register(
@@ -27,6 +64,15 @@ class AuthService {
     } on FirebaseAuthException catch (error) {
       log(error.message!);
       return determineError(error);
+    }
+  }
+
+  Future signOut() async {
+    try {
+      await HelperFunctions.saveUserLoggedInInfo(isLoggedIn: false);
+      await firebaseAuth.signOut();
+    } catch (error) {
+      return null;
     }
   }
 

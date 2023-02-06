@@ -7,24 +7,31 @@ class Strings {
   static const String password = "Password";
   static const String emailError = "Please enter a valid email!";
   static const String signInText = "Sign in";
+  static const String logout = "Log out";
 
   static const String registerText = "Register";
   static const String registerPrompt = "Don't have an account yet?";
   static const String registerActionText = "Register now!";
   static const String ok = "OK";
-  static const String finishRegister = "Register successfully! Press OK to login!";
+  static const String finishRegister =
+      "Register successfully! Press OK to login!";
 
   static const String loginPrompt = "Already have an account?";
   static const String loginActionText = "Log in now!";
 
   static const String username = "Username";
-  static const String usernameEmptyError = "Username cannot be empty!";
+  static const String usernameEmptyError = "Username too short!";
+  static const String usernameSpecialCharactersError =
+      "Only letters (a-z), numbers, . - and _ (underscore)!";
 
   static const String confirmPassword = "Confirm password";
+  static const String passwordMissing = "Please provide a password!";
   static const String passwordTooShort =
       "Password must be 6 characters or more!";
   static const String passwordConfirmError =
       "Password must be the same as above!";
+
+  static const String homepage = "Homepage";
 
   // Images
   static const String loginPageImg = "assets/titleImg.png";

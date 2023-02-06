@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:groupsie/helper/helper_function.dart';
+import 'package:groupsie/pages/auth/login_page.dart';
+import 'package:groupsie/shared/global.dart';
+import 'package:groupsie/shared/strings.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -28,7 +32,23 @@ class _HomePageState extends State<HomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      body: Center(child: Text(widget.title)),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(80.0),
+          child: Center(
+            child: Column(children: [
+              const Text(Strings.homepage),
+              ElevatedButton(
+                  onPressed: () {
+                    Global.authService.signOut();
+                    HelperFunctions.nextScreenReplacement(
+                                context, const LoginPage());
+                  },
+                  child: const Text(Strings.logout))
+            ]),
+          ),
+        ),
+      ),
     );
   }
 }

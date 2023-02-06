@@ -15,6 +15,10 @@ class LoginInfo {
     password = value;
   }
 
+  passwordValidate() {
+    return password.isEmpty ? Strings.passwordMissing : null;
+  }
+
   emailValidate() {
     // log("validated");
     return RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(email)

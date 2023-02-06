@@ -105,6 +105,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         style: const TextStyle(fontSize: inputTextSize),
                         onChanged: (value) => info.onUsernameChange(value),
+                        validator: (value) => info.usernameValidate(),
                       ),
 
                       const SizedBox(
