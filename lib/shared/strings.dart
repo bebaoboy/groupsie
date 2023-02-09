@@ -31,7 +31,10 @@ class Strings {
   static const String passwordConfirmError =
       "Password must be the same as above!";
 
+  // homepage
   static const String homepage = "Homepage";
+  static const String groups = "Groups";
+  static const String search = "Groups";
 
   // Images
   static const String loginPageImg = "assets/titleImg.png";

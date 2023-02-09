@@ -8,7 +8,7 @@ import 'package:groupsie/pages/auth/login_page.dart';
 import 'package:groupsie/shared/constants.dart';
 import 'package:groupsie/shared/global.dart';
 import 'package:groupsie/shared/strings.dart';
-import 'package:groupsie/style/login_page_params.dart';
+import 'package:groupsie/style/params.dart';
 import 'package:groupsie/helper/register_page_helper.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -76,7 +76,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         style: titleStyle,
                       ),
                       const SizedBox(
-                        height: titleBoxSize * 5,
+                        height: boxSize * 5,
                       ),
                       // const Text(
                       //   Strings.registerText,
@@ -95,7 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         validator: (value) => info.emailValidate(),
                       ),
                       const SizedBox(
-                        height: titleBoxSize * 2,
+                        height: boxSize * 2,
                       ),
                       TextFormField(
                         initialValue: info.username,
@@ -109,7 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
 
                       const SizedBox(
-                        height: titleBoxSize * 2,
+                        height: boxSize * 2,
                       ),
                       TextFormField(
                         key: passwordKey,
@@ -124,7 +124,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         validator: (value) => info.passwordValidate(),
                       ),
                       const SizedBox(
-                        height: titleBoxSize * 2,
+                        height: boxSize * 2,
                       ),
                       TextFormField(
                         obscureText: true,
@@ -138,7 +138,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         validator: (value) => info.passwordConfirmValidate(),
                       ),
                       const SizedBox(
-                        height: titleBoxSize * 2,
+                        height: boxSize * 2,
                       ),
                       SizedBox(
                         width: double.infinity,
@@ -190,7 +190,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             )),
                       ),
                       const SizedBox(
-                        height: titleBoxSize,
+                        height: boxSize,
                       ),
                       Text.rich(TextSpan(
                         text: "${Strings.loginPrompt} ",
@@ -212,7 +212,7 @@ class _RegisterPageState extends State<RegisterPage> {
             )
           : const Center(
               child: CircularProgressIndicator(
-                color: loadingColor,
+                color: Constants.mainColor,
               ),
             ),
     );

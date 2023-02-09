@@ -9,7 +9,7 @@ import 'package:groupsie/pages/home_page.dart';
 import 'package:groupsie/shared/constants.dart';
 import 'package:groupsie/shared/global.dart';
 import 'package:groupsie/shared/strings.dart';
-import 'package:groupsie/style/login_page_params.dart';
+import 'package:groupsie/style/params.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
 
 class LoginPage extends StatefulWidget {
@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
                         style: titleStyle,
                       ),
                       const SizedBox(
-                        height: titleBoxSize,
+                        height: boxSize,
                       ),
                       const Text(
                         Strings.appPrompt,
@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                         // validator: (value) => info.emailValidate(),
                       ),
                       const SizedBox(
-                        height: titleBoxSize * 2,
+                        height: boxSize * 2,
                       ),
                       TextFormField(
                         key: passwordKey,
@@ -129,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                         validator: (value) => info.passwordValidate(),
                       ),
                       const SizedBox(
-                        height: titleBoxSize * 2,
+                        height: boxSize * 2,
                       ),
                       SizedBox(
                         width: double.infinity,
@@ -186,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                             )),
                       ),
                       const SizedBox(
-                        height: titleBoxSize,
+                        height: boxSize,
                       ),
                       Text.rich(TextSpan(
                         text: "${Strings.registerPrompt} ",
@@ -209,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
             )
           : const Center(
               child: CircularProgressIndicator(
-                color: loadingColor,
+                color: Constants.mainColor,
               ),
             ),
     );
