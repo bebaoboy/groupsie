@@ -8,6 +8,7 @@ const double divThickness = 2;
 // padding
 const double hPadding = 20, vPadding = 80, hPaddingWeb = 150;
 const double vPaddingGroupList = 50;
+const double hPaddingTile = 20, vPaddingTile = 2;
 
 // title
 const double titleSize = 40;
@@ -24,6 +25,8 @@ const appBarStyle = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.white,
 );
+const tileTextStyle =
+    TextStyle(fontSize: titleSize * 0.45);
 
 //
 // prompt
@@ -81,3 +84,5 @@ const accountIcon = Icon(
   color: Constants.mainColor,
   size: 150,
 );
+const groupIcon = Icon(Icons.group_outlined, color: Constants.mainColor);
+

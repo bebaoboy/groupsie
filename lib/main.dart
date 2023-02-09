@@ -2,9 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:groupsie/helper/helper_function.dart';
-import 'package:groupsie/pages/auth/login_page.dart';
-import 'package:groupsie/pages/home_page.dart';
+import 'package:groupsie/pages/starting_page.dart';
 import 'package:groupsie/shared/constants.dart';
 import 'package:groupsie/shared/global.dart';
 
@@ -44,23 +42,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool _isSignedIn = false;
 
   @override
   void initState() {
     super.initState();
     Global();
-    getUserLoggedinStatus();
-  }
 
-  void getUserLoggedinStatus() async {
-    await HelperFunctions.getUserLoggedInInfo().then((value) => {
-          if (value != null) {
-              setState(() {
-                _isSignedIn = value.isLoggedIn;
-              })
-            },
-        });
   }
 
   // This widget is the root of your application.
@@ -83,7 +70,7 @@ class _MyAppState extends State<MyApp> {
           Theme.of(context).textTheme,
         ),
       ),
-      home: _isSignedIn ? const HomePage() : const LoginPage(),
+      home: const StartingPage(),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -27,7 +27,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late final LoginInfo info;
+  var info = LoginInfo();
 
   @override
   void initState() {
@@ -91,13 +91,46 @@ class _HomePageState extends State<HomePage> {
             textAlign: TextAlign.center,
             style: promptStyle,
           ),
-          const SizedBox(height: boxSize * 3,),
-          const Divider(thickness: divThickness,),
+          const SizedBox(
+            height: boxSize * 3,
+          ),
+          const Divider(
+            thickness: divThickness,
+          ),
           ListTile(
-            onTap: () {
-              
-            },
-          )
+            onTap: () {},
+            selectedColor: Constants.mainColor,
+            selected: true,
+            contentPadding: const EdgeInsets.symmetric(
+                horizontal: hPaddingTile, vertical: vPaddingTile),
+            leading: groupIcon,
+            title: const Text(
+              Strings.groups,
+              style: tileTextStyle,
+            ),
+          ),
+          ListTile(
+            onTap: () {},
+            selectedColor: Constants.mainColor,
+            contentPadding: const EdgeInsets.symmetric(
+                horizontal: hPaddingTile, vertical: vPaddingTile),
+            leading: groupIcon,
+            title: const Text(
+              Strings.groups,
+              style: tileTextStyle,
+            ),
+          ),
+          ListTile(
+            onTap: () {},
+            selectedColor: Constants.mainColor,
+            contentPadding: const EdgeInsets.symmetric(
+                horizontal: hPaddingTile, vertical: vPaddingTile),
+            leading: groupIcon,
+            title: const Text(
+              Strings.groups,
+              style: tileTextStyle,
+            ),
+          ),
         ],
       )),
     );

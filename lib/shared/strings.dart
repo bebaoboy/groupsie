@@ -34,7 +34,10 @@ class Strings {
   // homepage
   static const String homepage = "Homepage";
   static const String groups = "Groups";
-  static const String search = "Groups";
+  static const String search = "Search";
+
+  static const String retry = "Retry";
+  static const String networkError = "No connection!";
 
   // Images
   static const String loginPageImg = "assets/titleImg.png";
