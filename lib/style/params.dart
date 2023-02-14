@@ -29,11 +29,11 @@ const headerStyle = TextStyle(
 //
 // app bar
 const appBarStyle = TextStyle(
-  fontSize: titleSize,
+  fontSize: titleSize * 0.85,
   fontWeight: FontWeight.bold,
   color: Colors.white,
 );
-const tileTextStyle = TextStyle(fontSize: titleSize * 0.45);
+const tileTextStyle = TextStyle(fontSize: titleSize * 0.60);
 const accountNameStyle =
     TextStyle(fontSize: titleSize * 0.55, fontWeight: FontWeight.bold);
 
@@ -92,6 +92,11 @@ const accountIcon = Icon(
   Icons.account_circle,
   color: Constants.mainColor,
   size: 100,
+);
+const accountIconLg = Icon(
+  Icons.account_circle,
+  color: Constants.mainColor,
+  size: 200,
 );
 const cancelIcon = Icon(
   Icons.cancel_outlined,

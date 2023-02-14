@@ -37,6 +37,15 @@ class AuthService {
     }
   }
 
+  getEmail(username) async {
+    var s = "";
+    await DatabaseService.getUserData(username: username).then((result) => {
+          if (result.docs.length != 0) {s = result.docs[0]['email']}
+        });
+
+    return s;
+  }
+
   emailValidate(email) {
     // log("validated");
     if (RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(email)) {

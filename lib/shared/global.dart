@@ -1,31 +1,25 @@
-import 'dart:developer';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:groupsie/helper/helper_function.dart';
+import 'package:groupsie/helper/login_page_helper.dart';
+import 'package:groupsie/pages/auth/login_page.dart';
 import 'package:groupsie/service/auth_service.dart';
+import 'package:groupsie/service/connection.dart';
 
 class Global {
   static late final AuthService authService;
-  static bool _isConnected = false;
+  static bool isConnected = false;
+  static bool isLoading = true;
+
+  static var info = LoginInfo();
+
 
   Global() {
     authService = AuthService();
+    Connection.checkConnection();
   }
 
-  static bool isConnected() {
-    return _isConnected;
+  static logOut(context) {
+    Global.authService.signOut();
+    HelperFunctions.nextScreenReplacement(context, const LoginPage());
   }
-
-  static connectionDetector(
-      ConnectivityResult connectivityResult, context, page) {
-    // Got a new connectivity status!
-
-      HelperFunctions.nextScreenReplacement(
-        context,
-        page,
-      );
-      _isConnected = (connectivityResult == ConnectivityResult.wifi || connectivityResult == ConnectivityResult.mobile);
-            log("wifi detector: $_isConnected");
-
-  }
+  
 }

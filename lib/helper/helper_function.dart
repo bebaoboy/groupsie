@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
 import 'package:groupsie/shared/constants.dart';
+import 'package:groupsie/shared/global.dart';
 import 'package:groupsie/shared/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -14,17 +15,19 @@ class HelperFunctions {
   static String userEmailKey = "USEREMAILKEY";
 
   static Future<bool> saveUserLoggedInInfo(
-      {required bool isLoggedIn, email="", username=""}) async {
+      {required bool isLoggedIn, email = "", username = ""}) async {
     final sf = await SharedPreferences.getInstance();
     final currentInfo = await getUserLoggedInInfo();
     Map<String, dynamic> infoJsonified;
     if (currentInfo!.email.isNotEmpty) {
       infoJsonified = {
         'isLoggedIn': isLoggedIn,
-        'username': currentInfo.username.isEmpty ? username : currentInfo.username,
+        'username':
+            currentInfo.username.isEmpty ? username : currentInfo.username,
         'email': currentInfo.email
       };
     } else {
+      var email = await Global.authService.getEmail(username);
       infoJsonified = {
         'isLoggedIn': isLoggedIn,
         'username': username,
@@ -125,5 +128,9 @@ class HelperFunctions {
         textColor: Colors.white,
       ),
     ));
+  }
+
+  static getScreenSize(context) {
+    return MediaQuery.of(context).size;
   }
 }

@@ -1,9 +1,13 @@
+import 'dart:developer';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/helper_function.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
 import 'package:groupsie/pages/auth/login_page.dart';
-import 'package:groupsie/pages/network_error_page.dart';
+import 'package:groupsie/pages/loading_page.dart';
+import 'package:groupsie/widgets/home_page_drawer.dart';
+import 'package:groupsie/widgets/network_error_page.dart';
 import 'package:groupsie/pages/profile_page.dart';
 import 'package:groupsie/pages/search_page.dart';
 import 'package:groupsie/shared/constants.dart';
@@ -31,16 +35,31 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isSignedIn = false;
-  var info = LoginInfo();
   late final subscription;
 
   @override
   void initState() {
     super.initState();
-    subscription = Connectivity().onConnectivityChanged.listen(
-        (conn) => Global.connectionDetector(conn, context, const HomePage()));
+    Global.isLoading = true;
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((conn) => connectionDetector(conn));
     getUserLoggedinStatus();
-    getUserInfo();
+  }
+
+  connectionDetector(ConnectivityResult connectivityResult) {
+    // Got a new connectivity status!
+
+    if (!Global.isLoading) {
+      HelperFunctions.nextScreenReplacement(
+        context,
+        const HomePage(),
+      );
+      log("Refreshing");
+    }
+    Global.isConnected = (connectivityResult == ConnectivityResult.wifi ||
+        connectivityResult == ConnectivityResult.mobile);
+    log("wifi detector: $Global.isConnected");
   }
 
   @override
@@ -50,6 +69,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void getUserLoggedinStatus() async {
+    log(Global.isLoading.toString());
     await HelperFunctions.getUserLoggedInInfo().then((value) => {
           if (value != null)
             {
@@ -60,24 +80,22 @@ class _HomePageState extends State<HomePage> {
                     context,
                     const LoginPage(),
                   );
-                }
+                } else {}
               })
             },
+          getUserInfo()
         });
   }
 
   getUserInfo() async {
     await HelperFunctions.getUserLoggedInInfo().then((value) {
       if (value != null) {
-        info = value;
+        Global.info = value;
+        if (_isSignedIn) {
+          Global.isLoading = false;
+        }
       }
-      setState(() {});
     });
-  }
-
-  logOut() {
-    Global.authService.signOut();
-    HelperFunctions.nextScreenReplacement(context, const LoginPage());
   }
 
   @override
@@ -88,118 +106,39 @@ class _HomePageState extends State<HomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () =>
-                  {HelperFunctions.nextScreen(context, const SearchPage())},
-              icon: searchIcon)
-        ],
-        centerTitle: true,
-        backgroundColor: Constants.mainColor,
-        title: const Text(Strings.groups, style: appBarStyle),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(80.0),
-          child: Center(
-            child: Column(children: <Widget>[
-              SizedBox(
-                  width: 700.0,
-                  height: Global.isConnected() ? 0 : 100.0,
-                  child: NetworkErrorPage()),
-              const Text(Strings.homepage),
-              ElevatedButton(
-                  onPressed: () {
-                    logOut();
-                  },
-                  child: const Text(Strings.logout))
-            ]),
-          ),
-        ),
-      ),
-      drawer: SizedBox(
-        width: drawerWidth,
-        child: Drawer(
-            child: ListView(
-          padding: const EdgeInsets.symmetric(vertical: vPaddingGroupList),
-          children: <Widget>[
-            accountIcon,
-            Text(
-              info.username,
-              textAlign: TextAlign.center,
-              style: accountNameStyle,
+    return !Global.isLoading
+        ? Scaffold(
+            appBar: AppBar(
+              actions: [
+                IconButton(
+                    onPressed: () => {
+                          HelperFunctions.nextScreen(
+                              context, const SearchPage())
+                        },
+                    icon: searchIcon)
+              ],
+              centerTitle: true,
+              backgroundColor: Constants.mainColor,
+              title: const Text(Strings.groups, style: appBarStyle),
             ),
-            const SizedBox(
-              height: boxSize * 3,
-            ),
-            const Divider(
-              thickness: divThickness,
-            ),
-            ListTile(
-              onTap: () {},
-              selectedColor: Constants.mainColor,
-              selected: true,
-              contentPadding: const EdgeInsets.symmetric(
-                  horizontal: hPaddingTile, vertical: vPaddingTile),
-              leading: groupIcon,
-              title: const Text(
-                Strings.groups,
-                style: tileTextStyle,
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(80.0),
+                child: Center(
+                  child: Column(children: <Widget>[
+                    const NetworkErrorPage(),
+                    const Text(Strings.homepage),
+                    ElevatedButton(
+                        onPressed: () {
+                          Global.logOut(context);
+                        },
+                        child: const Text(Strings.logout))
+                  ]),
+                ),
               ),
             ),
-            ListTile(
-              onTap: () {
-                HelperFunctions.nextScreen(context, const ProfilePage());
-              },
-              selectedColor: Constants.mainColor,
-              contentPadding: const EdgeInsets.symmetric(
-                  horizontal: hPaddingTile, vertical: vPaddingTile),
-              leading: profileIcon,
-              title: const Text(
-                Strings.profile,
-                style: tileTextStyle,
-              ),
-            ),
-            ListTile(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: const Text(
-                          Strings.logOutPromptTitle,
-                          style: headerStyle,
-                        ),
-                        content: const Text(Strings.logOutPrompt),
-                        actions: [
-                          IconButton(
-                              onPressed: () {
-                                logOut();
-                              },
-                              icon: continueIcon),
-                          IconButton(
-                              onPressed: () {
-                                HelperFunctions.lastScreen(context);
-                              },
-                              icon: cancelIcon)
-                        ],
-                      );
-                    });
-              },
-              selectedColor: Constants.mainColor,
-              contentPadding: const EdgeInsets.symmetric(
-                  horizontal: hPaddingTile, vertical: vPaddingTile),
-              leading: logoutIcon,
-              title: const Text(
-                Strings.logout,
-                style: tileTextStyle,
-              ),
-            ),
-          ],
-        )),
-      ),
-    );
+            drawer: const HomePageDrawer(),
+          )
+        : const LoadingPage();
   }
 }

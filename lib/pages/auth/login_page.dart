@@ -31,8 +31,6 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  bool _isLoading = false;
-
   @override
   void initState() {
     super.initState();
@@ -51,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
         info = value;
         setState(() {
           emailController.text = info.email;
+          Global.isLoading = false;
         });
       }
       log(value.toString());
@@ -70,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
       //   backgroundColor: bgColor,
       // ),
       // body: Center(child: Text(widget.title)),
-      body: !_isLoading
+      body: !Global.isLoading
           ? SingleChildScrollView(
               child: Padding(
                 padding: !kIsWeb
@@ -138,7 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                               log("Email = ${info.email}, Pass = ${info.password}");
                               if (formKey.currentState!.validate()) {
                                 setState(() {
-                                  _isLoading = true;
+                                  Global.isLoading = true;
                                 });
                                 await Global.authService
                                     .login(
@@ -151,30 +150,31 @@ class _LoginPageState extends State<LoginPage> {
                                             .emailValidate(info.email) ==
                                         "email") {
                                       HelperFunctions.saveUserLoggedInInfo(
-                                          isLoggedIn: true,
-                                          username: info.username,
-                                          email: info.email);
+                                              isLoggedIn: true,
+                                              username: info.username,
+                                              email: info.email)
+                                          .then((value) => HelperFunctions
+                                              .nextScreenReplacement(
+                                                  context, const HomePage()));
                                     } else {
                                       HelperFunctions.saveUserLoggedInInfo(
-                                          isLoggedIn: true,
-                                          username: info.email,
-                                          email: info.email);
+                                              isLoggedIn: true,
+                                              username: info.email,
+                                              email: info.email)
+                                          .then((value) => HelperFunctions
+                                              .nextScreenReplacement(
+                                                  context, const HomePage()));
                                     }
 
-                                    HelperFunctions.nextScreenReplacement(
-                                        context, const HomePage());
-                                    setState(() {
-                                      _isLoading = false;
-                                    });
+                                    // HelperFunctions.nextScreenReplacement(
+                                    //     context, const HomePage());
                                   } else {
                                     HelperFunctions.showSnackBar(
                                       context,
                                       Constants.errorColor,
                                       value,
                                     );
-                                    setState(() {
-                                      _isLoading = false;
-                                    });
+                                    setState(() {});
                                   }
                                 });
                               }

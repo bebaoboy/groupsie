@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:groupsie/helper/helper_function.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
 import 'package:groupsie/pages/starting_page.dart';
+import 'package:groupsie/shared/constants.dart';
 import 'package:groupsie/shared/strings.dart';
 
-class BlankPage extends StatefulWidget {
-  const BlankPage({super.key});
+class LoadingPage extends StatefulWidget {
+  const LoadingPage({super.key});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -16,13 +17,13 @@ class BlankPage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title = "BlankPage";
+  final String title = "LoadingPage";
 
   @override
-  State<BlankPage> createState() => _BlankPageState();
+  State<LoadingPage> createState() => _LoadingPageState();
 }
 
-class _BlankPageState extends State<BlankPage> {
+class _LoadingPageState extends State<LoadingPage> {
   late final LoginInfo info;
 
   @override
@@ -38,27 +39,11 @@ class _BlankPageState extends State<BlankPage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      body: SizedBox(
-        width: 100,
-        height: 200,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(80.0),
-            child: Center(
-              child: Column(children: [
-                const Text(Strings.networkError),
-                ElevatedButton(
-                    onPressed: () {
-                      HelperFunctions.nextScreenReplacement(
-                          context, const StartingPage());
-                    },
-                    child: const Text(Strings.retry))
-              ]),
-            ),
-          ),
-        ),
+    return const Scaffold(
+        body: Center(
+      child: CircularProgressIndicator(
+        color: Constants.mainColor,
       ),
-    );
+    ));
   }
 }
