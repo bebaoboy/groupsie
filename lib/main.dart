@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:groupsie/pages/home_page.dart';
 import 'package:groupsie/pages/starting_page.dart';
 import 'package:groupsie/shared/constants.dart';
 import 'package:groupsie/shared/global.dart';
@@ -70,7 +71,7 @@ class _MyAppState extends State<MyApp> {
           Theme.of(context).textTheme,
         ),
       ),
-      home: const StartingPage(),
+      home: const HomePage(),
       debugShowCheckedModeBanner: false,
     );
   }

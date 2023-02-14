@@ -1,9 +1,11 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/helper_function.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
+import 'package:groupsie/pages/auth/login_page.dart';
+import 'package:groupsie/pages/network_error_page.dart';
 import 'package:groupsie/pages/profile_page.dart';
 import 'package:groupsie/pages/search_page.dart';
-import 'package:groupsie/pages/starting_page.dart';
 import 'package:groupsie/shared/constants.dart';
 import 'package:groupsie/shared/global.dart';
 import 'package:groupsie/shared/strings.dart';
@@ -28,12 +30,40 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool _isSignedIn = false;
   var info = LoginInfo();
+  late final subscription;
 
   @override
   void initState() {
     super.initState();
+    subscription = Connectivity().onConnectivityChanged.listen(
+        (conn) => Global.connectionDetector(conn, context, const HomePage()));
+    getUserLoggedinStatus();
     getUserInfo();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    subscription.cancel();
+  }
+
+  void getUserLoggedinStatus() async {
+    await HelperFunctions.getUserLoggedInInfo().then((value) => {
+          if (value != null)
+            {
+              setState(() {
+                _isSignedIn = value.isLoggedIn;
+                if (!_isSignedIn) {
+                  HelperFunctions.nextScreenReplacement(
+                    context,
+                    const LoginPage(),
+                  );
+                }
+              })
+            },
+        });
   }
 
   getUserInfo() async {
@@ -47,7 +77,7 @@ class _HomePageState extends State<HomePage> {
 
   logOut() {
     Global.authService.signOut();
-    HelperFunctions.nextScreenReplacement(context, const StartingPage());
+    HelperFunctions.nextScreenReplacement(context, const LoginPage());
   }
 
   @override
@@ -74,7 +104,11 @@ class _HomePageState extends State<HomePage> {
         child: Padding(
           padding: const EdgeInsets.all(80.0),
           child: Center(
-            child: Column(children: [
+            child: Column(children: <Widget>[
+              SizedBox(
+                  width: 700.0,
+                  height: Global.isConnected() ? 0 : 100.0,
+                  child: NetworkErrorPage()),
               const Text(Strings.homepage),
               ElevatedButton(
                   onPressed: () {
