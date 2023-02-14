@@ -35,6 +35,9 @@ class Strings {
   static const String homepage = "Homepage";
   static const String groups = "Groups";
   static const String search = "Search";
+  static const String profile = "Profile";
+  static const String logOutPromptTitle = "Logging Out...";
+  static const String logOutPrompt = "Are you sure you want to log out?";
 
   static const String retry = "Retry";
   static const String networkError = "No connection!";

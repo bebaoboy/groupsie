@@ -10,10 +10,18 @@ const double hPadding = 20, vPadding = 80, hPaddingWeb = 150;
 const double vPaddingGroupList = 50;
 const double hPaddingTile = 20, vPaddingTile = 2;
 
+// container
+const double drawerWidth = 200;
+
 // title
 const double titleSize = 40;
 const titleStyle = TextStyle(
   fontSize: titleSize,
+  fontWeight: FontWeight.bold,
+  color: Constants.mainColor,
+);
+const headerStyle = TextStyle(
+  fontSize: titleSize * 0.5,
   fontWeight: FontWeight.bold,
   color: Constants.mainColor,
 );
@@ -25,8 +33,9 @@ const appBarStyle = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.white,
 );
-const tileTextStyle =
-    TextStyle(fontSize: titleSize * 0.45);
+const tileTextStyle = TextStyle(fontSize: titleSize * 0.45);
+const accountNameStyle =
+    TextStyle(fontSize: titleSize * 0.55, fontWeight: FontWeight.bold);
 
 //
 // prompt
@@ -82,7 +91,18 @@ const searchIcon = Icon(Icons.search_outlined, color: Colors.white);
 const accountIcon = Icon(
   Icons.account_circle,
   color: Constants.mainColor,
-  size: 150,
+  size: 100,
 );
-const groupIcon = Icon(Icons.group_outlined, color: Constants.mainColor);
+const cancelIcon = Icon(
+  Icons.cancel_outlined,
+  color: Constants.errorColor,
+);
+const continueIcon = Icon(
+  Icons.check_circle_outline,
+  color: Constants.doneColor,
+);
 
+// app bar icon
+const groupIcon = Icon(Icons.group_outlined);
+const logoutIcon = Icon(Icons.logout_outlined);
+const profileIcon = Icon(Icons.account_box_outlined);

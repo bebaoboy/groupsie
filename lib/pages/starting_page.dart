@@ -47,12 +47,12 @@ class _StartingPageState extends State<StartingPage> {
                 _isSignedIn = value.isLoggedIn;
               })
             },
-          HelperFunctions.nextScreenReplacement(
-            context,
-            _isConnected
-                ? (_isSignedIn ? const HomePage() : const LoginPage())
-                : const NetworkErrorPage(),
-          )
+          // HelperFunctions.nextScreenReplacement(
+          //   context,
+          //   _isConnected
+          //       ? (_isSignedIn ? const HomePage() : const LoginPage())
+          //       : const NetworkErrorPage(),
+          // )
         });
   }
 

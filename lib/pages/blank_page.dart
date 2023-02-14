@@ -1,12 +1,11 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/helper_function.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
 import 'package:groupsie/pages/starting_page.dart';
 import 'package:groupsie/shared/strings.dart';
 
-class NetworkErrorPage extends StatefulWidget {
-  const NetworkErrorPage({super.key});
+class BlankPage extends StatefulWidget {
+  const BlankPage({super.key});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -17,37 +16,18 @@ class NetworkErrorPage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title = "NetworkErrorPage";
+  final String title = "BlankPage";
 
   @override
-  State<NetworkErrorPage> createState() => _NetworkErrorPageState();
+  State<BlankPage> createState() => _BlankPageState();
 }
 
-class _NetworkErrorPageState extends State<NetworkErrorPage> {
+class _BlankPageState extends State<BlankPage> {
   late final LoginInfo info;
-  late final subscription;
 
   @override
   void initState() {
     super.initState();
-    subscription = Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult connectivityResult) {
-      // Got a new connectivity status!
-      if (connectivityResult == ConnectivityResult.mobile) {
-        // I am connected to a mobile network.
-        HelperFunctions.nextScreenReplacement(context, const StartingPage());
-      } else if (connectivityResult == ConnectivityResult.wifi) {
-        // I am connected to a wifi network.
-        HelperFunctions.nextScreenReplacement(context, const StartingPage());
-      } else {}
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    subscription.cancel();
   }
 
   @override

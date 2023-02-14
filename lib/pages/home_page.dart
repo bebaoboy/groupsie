@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/helper_function.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
-import 'package:groupsie/pages/auth/login_page.dart';
+import 'package:groupsie/pages/profile_page.dart';
 import 'package:groupsie/pages/search_page.dart';
+import 'package:groupsie/pages/starting_page.dart';
 import 'package:groupsie/shared/constants.dart';
 import 'package:groupsie/shared/global.dart';
 import 'package:groupsie/shared/strings.dart';
@@ -44,6 +45,11 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  logOut() {
+    Global.authService.signOut();
+    HelperFunctions.nextScreenReplacement(context, const StartingPage());
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -72,67 +78,94 @@ class _HomePageState extends State<HomePage> {
               const Text(Strings.homepage),
               ElevatedButton(
                   onPressed: () {
-                    Global.authService.signOut();
-                    HelperFunctions.nextScreenReplacement(
-                        context, const LoginPage());
+                    logOut();
                   },
                   child: const Text(Strings.logout))
             ]),
           ),
         ),
       ),
-      drawer: Drawer(
-          child: ListView(
-        padding: const EdgeInsets.symmetric(vertical: vPaddingGroupList),
-        children: <Widget>[
-          accountIcon,
-          Text(
-            info.username,
-            textAlign: TextAlign.center,
-            style: promptStyle,
-          ),
-          const SizedBox(
-            height: boxSize * 3,
-          ),
-          const Divider(
-            thickness: divThickness,
-          ),
-          ListTile(
-            onTap: () {},
-            selectedColor: Constants.mainColor,
-            selected: true,
-            contentPadding: const EdgeInsets.symmetric(
-                horizontal: hPaddingTile, vertical: vPaddingTile),
-            leading: groupIcon,
-            title: const Text(
-              Strings.groups,
-              style: tileTextStyle,
+      drawer: SizedBox(
+        width: drawerWidth,
+        child: Drawer(
+            child: ListView(
+          padding: const EdgeInsets.symmetric(vertical: vPaddingGroupList),
+          children: <Widget>[
+            accountIcon,
+            Text(
+              info.username,
+              textAlign: TextAlign.center,
+              style: accountNameStyle,
             ),
-          ),
-          ListTile(
-            onTap: () {},
-            selectedColor: Constants.mainColor,
-            contentPadding: const EdgeInsets.symmetric(
-                horizontal: hPaddingTile, vertical: vPaddingTile),
-            leading: groupIcon,
-            title: const Text(
-              Strings.groups,
-              style: tileTextStyle,
+            const SizedBox(
+              height: boxSize * 3,
             ),
-          ),
-          ListTile(
-            onTap: () {},
-            selectedColor: Constants.mainColor,
-            contentPadding: const EdgeInsets.symmetric(
-                horizontal: hPaddingTile, vertical: vPaddingTile),
-            leading: groupIcon,
-            title: const Text(
-              Strings.groups,
-              style: tileTextStyle,
+            const Divider(
+              thickness: divThickness,
             ),
-          ),
-        ],
-      )),
+            ListTile(
+              onTap: () {},
+              selectedColor: Constants.mainColor,
+              selected: true,
+              contentPadding: const EdgeInsets.symmetric(
+                  horizontal: hPaddingTile, vertical: vPaddingTile),
+              leading: groupIcon,
+              title: const Text(
+                Strings.groups,
+                style: tileTextStyle,
+              ),
+            ),
+            ListTile(
+              onTap: () {
+                HelperFunctions.nextScreen(context, const ProfilePage());
+              },
+              selectedColor: Constants.mainColor,
+              contentPadding: const EdgeInsets.symmetric(
+                  horizontal: hPaddingTile, vertical: vPaddingTile),
+              leading: profileIcon,
+              title: const Text(
+                Strings.profile,
+                style: tileTextStyle,
+              ),
+            ),
+            ListTile(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text(
+                          Strings.logOutPromptTitle,
+                          style: headerStyle,
+                        ),
+                        content: const Text(Strings.logOutPrompt),
+                        actions: [
+                          IconButton(
+                              onPressed: () {
+                                logOut();
+                              },
+                              icon: continueIcon),
+                          IconButton(
+                              onPressed: () {
+                                HelperFunctions.lastScreen(context);
+                              },
+                              icon: cancelIcon)
+                        ],
+                      );
+                    });
+              },
+              selectedColor: Constants.mainColor,
+              contentPadding: const EdgeInsets.symmetric(
+                  horizontal: hPaddingTile, vertical: vPaddingTile),
+              leading: logoutIcon,
+              title: const Text(
+                Strings.logout,
+                style: tileTextStyle,
+              ),
+            ),
+          ],
+        )),
+      ),
     );
   }
 }
