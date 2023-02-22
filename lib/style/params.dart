@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:groupsie/shared/constants.dart';
 
+var standardButtonRadius = RoundedRectangleBorder(
+  borderRadius: BorderRadius.circular(4.0),
+);
+
 // size
 const double boxSize = 10;
 const double divThickness = 2;
@@ -20,6 +24,11 @@ const titleStyle = TextStyle(
   fontWeight: FontWeight.bold,
   color: Constants.mainColor,
 );
+const titleFadedStyle = TextStyle(
+  fontSize: titleSize,
+  fontWeight: FontWeight.bold,
+  color: Constants.fadedColor,
+);
 const headerStyle = TextStyle(
   fontSize: titleSize * 0.5,
   fontWeight: FontWeight.bold,
@@ -29,11 +38,12 @@ const headerStyle = TextStyle(
 //
 // app bar
 const appBarStyle = TextStyle(
-  fontSize: titleSize * 0.85,
+  fontSize: titleSize * 0.75,
   fontWeight: FontWeight.bold,
   color: Colors.white,
 );
 const tileTextStyle = TextStyle(fontSize: titleSize * 0.60);
+const standardTextStyle = TextStyle(fontSize: titleSize * 0.50);
 const accountNameStyle =
     TextStyle(fontSize: titleSize * 0.55, fontWeight: FontWeight.bold);
 
@@ -105,6 +115,10 @@ const cancelIcon = Icon(
 const continueIcon = Icon(
   Icons.check_circle_outline,
   color: Constants.doneColor,
+);
+const addIcon = Icon(
+  Icons.add_outlined,
+  color: Colors.white,
 );
 
 // app bar icon

@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:groupsie/helper/helper_function.dart';
 import 'package:groupsie/shared/global.dart';
 
 class Connection {

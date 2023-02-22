@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
-import 'package:groupsie/shared/constants.dart';
+import 'package:groupsie/shared/strings.dart';
+import 'package:groupsie/style/params.dart';
 
-class LoadingPage extends StatefulWidget {
-  const LoadingPage({super.key});
+class EmptyPage extends StatefulWidget {
+  const EmptyPage({super.key});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -14,13 +15,13 @@ class LoadingPage extends StatefulWidget {
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
 
-  final String title = "LoadingPage";
+  final String title = "EmptyPage";
 
   @override
-  State<LoadingPage> createState() => _LoadingPageState();
+  State<EmptyPage> createState() => _EmptyPageState();
 }
 
-class _LoadingPageState extends State<LoadingPage> {
+class _EmptyPageState extends State<EmptyPage> {
   late final LoginInfo info;
 
   @override
@@ -36,11 +37,16 @@ class _LoadingPageState extends State<LoadingPage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return const Scaffold(
-        body: Center(
-      child: CircularProgressIndicator(
-        color: Constants.mainColor,
-      ),
-    ));
+    return SingleChildScrollView(
+      child: Center(
+          child: Column(children: const [
+            Text(
+              Strings.empty,
+              style: titleFadedStyle,
+            ),
+            
+          ]),
+        ),
+    );
   }
 }

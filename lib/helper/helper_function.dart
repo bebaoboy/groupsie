@@ -40,20 +40,20 @@ class HelperFunctions {
   }
 
   // saving the data to shared references
-  static Future<bool> _saveUserLoggedInStatus(bool isLoggedIn) async {
-    final sf = await SharedPreferences.getInstance();
-    return sf.setBool(userLoggedInKey, isLoggedIn);
-  }
+  // static Future<bool> _saveUserLoggedInStatus(bool isLoggedIn) async {
+  //   final sf = await SharedPreferences.getInstance();
+  //   return sf.setBool(userLoggedInKey, isLoggedIn);
+  // }
 
-  static Future<bool> _saveUserLoggedInEmail(String email) async {
-    final sf = await SharedPreferences.getInstance();
-    return sf.setString(userNameKey, email);
-  }
+  // static Future<bool> _saveUserLoggedInEmail(String email) async {
+  //   final sf = await SharedPreferences.getInstance();
+  //   return sf.setString(userNameKey, email);
+  // }
 
-  static Future<bool> _saveUserLoggedInUsername(String username) async {
-    final sf = await SharedPreferences.getInstance();
-    return sf.setString(userEmailKey, username);
-  }
+  // static Future<bool> _saveUserLoggedInUsername(String username) async {
+  //   final sf = await SharedPreferences.getInstance();
+  //   return sf.setString(userEmailKey, username);
+  // }
 
   // getting the data
   static Future<String?> _getUserLoggedInInfo() async {

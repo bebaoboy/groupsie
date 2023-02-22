@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:groupsie/shared/entities.dart';
 
@@ -28,5 +30,11 @@ class DatabaseService {
     }
 
     return snapshot;
+  }
+
+  // getting user group
+  Future getUserGroup({String email = "", String username = ""}) async {
+    log("current uid $uid");
+    return userCollection.doc(uid).snapshots();
   }
 }

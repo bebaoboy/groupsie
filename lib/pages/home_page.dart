@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/helper_function.dart';
-import 'package:groupsie/helper/login_page_helper.dart';
+import 'package:groupsie/helper/home_page_helper.dart';
 import 'package:groupsie/pages/auth/login_page.dart';
+import 'package:groupsie/pages/group_page.dart';
 import 'package:groupsie/pages/loading_page.dart';
 import 'package:groupsie/widgets/home_page_drawer.dart';
 import 'package:groupsie/widgets/network_error_page.dart';
-import 'package:groupsie/pages/profile_page.dart';
 import 'package:groupsie/pages/search_page.dart';
 import 'package:groupsie/shared/constants.dart';
 import 'package:groupsie/shared/global.dart';
@@ -36,6 +36,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool _isSignedIn = false;
   late final subscription;
+  Stream? group;
+
+  final groupPage = const GroupPage();
 
   @override
   void initState() {
@@ -88,10 +91,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   getUserInfo() async {
-    await HelperFunctions.getUserLoggedInInfo().then((value) {
+    await HelperFunctions.getUserLoggedInInfo().then((value) async {
       if (value != null) {
         Global.info = value;
         if (_isSignedIn) {
+          // getting group list
+          await getUserGroup().then((snapshot) {
+            setState(() {
+              Global.info.group = snapshot;
+            });
+          });
           Global.isLoading = false;
         }
       }
@@ -123,21 +132,29 @@ class _HomePageState extends State<HomePage> {
             ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(80.0),
+                padding: const EdgeInsets.symmetric(vertical: 60.0),
                 child: Center(
                   child: Column(children: <Widget>[
                     const NetworkErrorPage(),
-                    const Text(Strings.homepage),
-                    ElevatedButton(
-                        onPressed: () {
-                          Global.logOut(context);
-                        },
-                        child: const Text(Strings.logout))
+                    // const Text(Strings.homepage),
+                    // ElevatedButton(
+                    //     onPressed: () {
+                    //       Global.logOut(context);
+                    //     },
+                    //     child: const Text(Strings.logout))
+                    getGroupList(Global.info.group, context),
                   ]),
                 ),
               ),
             ),
             drawer: const HomePageDrawer(),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                createGroupDialog(context);
+              },
+              backgroundColor: Constants.mainColor,
+              child: addIcon,
+            ),
           )
         : const LoadingPage();
   }

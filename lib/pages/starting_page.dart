@@ -3,11 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/helper_function.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
-import 'package:groupsie/pages/auth/login_page.dart';
-import 'package:groupsie/pages/home_page.dart';
-import 'package:groupsie/widgets/network_error_page.dart';
 import 'package:groupsie/shared/constants.dart';
-import 'package:groupsie/shared/strings.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 class StartingPage extends StatefulWidget {

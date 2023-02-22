@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/helper_function.dart';
-import 'package:groupsie/pages/auth/login_page.dart';
 import 'package:groupsie/shared/constants.dart';
 import 'package:groupsie/shared/global.dart';
 import 'package:groupsie/shared/strings.dart';
@@ -45,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Drawer(
             child: ListView(
               padding:
-                  const EdgeInsets.symmetric(vertical: vPaddingGroupList * 1.5),
+                  const EdgeInsets.symmetric(vertical: vPaddingGroupList * 1.5, horizontal: hPadding),
               children: <Widget>[
                 accountIconLg,
                 const SizedBox(
@@ -60,15 +59,25 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        Strings.username,
-                        textAlign: TextAlign.center,
-                        style: tileTextStyle,
+                      const Expanded(
+                        flex: 5,
+                        child: Text(
+                          Strings.username,
+                          textAlign: TextAlign.start,
+                          style: tileTextStyle,
+                        ),
                       ),
-                      Text(
-                        Global.info.username,
-                        textAlign: TextAlign.center,
-                        style: tileTextStyle,
+                      Expanded(
+                        flex: 5,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: AlignmentDirectional.centerEnd,
+                          child: Text(
+                            Global.info.username,
+                            textAlign: TextAlign.end,
+                            style: tileTextStyle,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -82,15 +91,25 @@ class _ProfilePageState extends State<ProfilePage> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        Strings.email,
-                        textAlign: TextAlign.center,
-                        style: tileTextStyle,
+                      const Expanded(
+                        flex: 5,
+                        child: Text(
+                          Strings.email,
+                          textAlign: TextAlign.start,
+                          style: tileTextStyle,
+                        ),
                       ),
-                      Text(
-                        Global.info.email,
-                        textAlign: TextAlign.center,
-                        style: tileTextStyle,
+                      Expanded(
+                        flex: 5,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: AlignmentDirectional.centerEnd,
+                          child: Text(
+                            Global.info.email,
+                            textAlign: TextAlign.end,
+                            style: tileTextStyle,
+                          ),
+                        ),
                       ),
                     ],
                   ),

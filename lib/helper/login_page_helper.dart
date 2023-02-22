@@ -1,10 +1,10 @@
-import 'dart:developer';
 
 import 'package:groupsie/shared/strings.dart';
 
 class LoginInfo {
   bool isLoggedIn = false;
   String email = "", password = "", username = "";
+  Stream? group;
 
   onEmailChange(value) {
     email = value;
@@ -24,5 +24,9 @@ class LoginInfo {
     return RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$").hasMatch(email)
         ? null
         : Strings.emailError;
+  }
+
+  setGroup(groups) {
+    group = groups;
   }
 }
