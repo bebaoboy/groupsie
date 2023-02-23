@@ -38,8 +38,6 @@ class _HomePageState extends State<HomePage> {
   late final subscription;
   // Stream? groups;
 
-  final groupPage = const GroupPage();
-
   @override
   void initState() {
     super.initState();
@@ -133,18 +131,16 @@ class _HomePageState extends State<HomePage> {
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 60.0),
-                child: Center(
-                  child: Column(children: <Widget>[
-                    const NetworkErrorPage(),
-                    // const Text(Strings.homepage),
-                    // ElevatedButton(
-                    //     onPressed: () {
-                    //       Global.logOut(context);
-                    //     },
-                    //     child: const Text(Strings.logout))
-                    getGroupList(Global.info.group, context),
-                  ]),
-                ),
+                child: Column(children: <Widget>[
+                  Center(child: const NetworkErrorPage()),
+                  // const Text(Strings.homepage),
+                  // ElevatedButton(
+                  //     onPressed: () {
+                  //       Global.logOut(context);
+                  //     },
+                  //     child: const Text(Strings.logout))
+                  getGroupList(Global.info.group, context),
+                ]),
               ),
             ),
             drawer: const HomePageDrawer(),
@@ -175,18 +171,26 @@ class _HomePageState extends State<HomePage> {
                                   setState(() {
                                     Global.isLoading = true;
                                   });
-                                  Global.newGroup.reset();
                                   createGroup(
                                           username: Global.info.username,
                                           group: Global.newGroup)
-                                      .whenComplete(() {
+                                      .then((value) {
                                     setState(() {
                                       Global.isLoading = false;
+                                      Global.newGroup.reset();
+                                      HelperFunctions.lastScreen(context);
+
+                                      if (value != null) {
+                                        HelperFunctions.showSnackBar(context,
+                                            Constants.errorColor, value);
+                                      } else {
+                                        HelperFunctions.showSnackBar(
+                                            context,
+                                            Constants.doneColor,
+                                            Strings.groupCreatedDone);
+                                      }
                                     });
                                   });
-                                  HelperFunctions.lastScreen(context);
-                                  HelperFunctions.showSnackBar(
-                                      context, Constants.doneColor, Strings.groupCreatedDone);
                                 }
                               },
                               child: const Text(Strings.continueTxt))

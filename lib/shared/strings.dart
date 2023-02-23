@@ -49,16 +49,20 @@ class Strings {
   static const String createGroup = "Create a group";
   static const String searchGroup = "Search for a group";
   static const String groupCreatedDone = "Group created successfully!";
+  static const String groupExists = "Group already exists!";
+
 
   // Images
   static const String loginPageImg = "assets/titleImg.png";
 
   static const String invalidEmail = "Invalid email address!";
+
+  // Errors
   static const String userDisabled =
       "Your account has been disabled. Please contact your customer support!";
   static const String userNotFound = "Account does not exists!";
   static const String wrongPassword = "Incorrect password!";
-  static const String emailAlreadyInUse = "Account already exists!";
+  static const String accountExists = "Account already exists!";
   static const String weakPassword = "Your password is weak. Try another one!";
   static const String error = "Some errors happened. Please try again!";
 }

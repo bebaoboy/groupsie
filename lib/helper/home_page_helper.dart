@@ -6,6 +6,7 @@ import 'package:groupsie/pages/empty_group_page.dart';
 import 'package:groupsie/pages/group_page.dart';
 import 'package:groupsie/pages/loading_page.dart';
 import 'package:groupsie/service/database_service.dart';
+import 'package:groupsie/shared/global.dart';
 
 class Group {
   String name = "";
@@ -38,8 +39,17 @@ getGroupList(Stream? group, context) {
               snapshot.data.data()['groups'] != null &&
               snapshot.data.data()['groups'].length != 0) {
             //log(snapshot.data.data()['groups']);
-
-            return const GroupPage();
+            return ListView.builder(
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: snapshot.data.data()['groups'].length,
+                itemBuilder: (context, index) {
+                  return GroupPage(
+                      groupId: getGroupId(
+                        snapshot.data.data()['groups'][index]), 
+                        groupName: getGroupName(snapshot.data.data()['groups'][index]),
+                        username: Global.info.username,);
+                });
           } else {
             return const EmptyGroupPage();
           }
@@ -47,6 +57,14 @@ getGroupList(Stream? group, context) {
           return const SizedBox(width: 200, height: 600, child: LoadingPage());
         }
       });
+}
+
+String getGroupId(String res) {
+  return res.substring(0, res.indexOf("_"));
+}
+
+String getGroupName(String res) {
+  return res.substring(res.indexOf("_") + 1);
 }
 
 Future getUserGroup() async {

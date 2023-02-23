@@ -61,6 +61,10 @@ class AuthService {
       required String password,
       required String username}) async {
     try {
+      final result = await DatabaseService.getUserData(username: username);
+      if (result.docs.length != 0) {
+        return Strings.accountExists;
+      }
       final user = (await firebaseAuth.createUserWithEmailAndPassword(
               email: email, password: password))
           .user;
@@ -97,7 +101,7 @@ class AuthService {
         return Strings.wrongPassword;
       case 'email-already-in-use':
       case 'account-exists-with-different-credential':
-        return Strings.emailAlreadyInUse;
+        return Strings.accountExists;
       case 'weak-password':
         return Strings.weakPassword;
       case 'invalid-credential':

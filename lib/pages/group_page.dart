@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
+import 'package:groupsie/style/params.dart';
 
 class GroupPage extends StatefulWidget {
-  const GroupPage({super.key});
+  const GroupPage(
+      {super.key,
+      required this.groupId,
+      required this.groupName,
+      required this.username});
+
+  final String groupName;
+  final String groupId;
+  final String username;
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -35,18 +44,24 @@ class _GroupPageState extends State<GroupPage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return SizedBox(
-      width: 100,
-      height: 200,
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Column(children: [
-              const Text("THERE ARE GROUPS HERE!"),
-            ]),
-          ),
+    // return SizedBox(
+    //   width: 400,
+    //   height: 200,
+    //   child: SingleChildScrollView(
+    //     child: Padding(
+    //       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 30),
+    //       child: Text(widget.groupName),
+    //     ),
+    //   ),
+    // );
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: ListTile(
+        title: Text(
+          widget.groupName,
+          style: accountNameStyle,
         ),
+        subtitle: Text(widget.groupId),
       ),
     );
   }
