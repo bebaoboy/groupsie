@@ -13,7 +13,7 @@ class DatabaseService {
   DatabaseService({required this.uid});
 
   // update user data
-  Future updateUserData({required String username, String? email}) async {
+  Future createUserData({required String username, String? email}) async {
     return await userCollection
         .doc(uid)
         .set(Entity.createUser(uid, username, email));
@@ -36,5 +36,33 @@ class DatabaseService {
   Future getUserGroup({String email = "", String username = ""}) async {
     log("current uid $uid");
     return userCollection.doc(uid).snapshots();
+  }
+
+  Future createGroup(
+      {required String username,
+      required String groupName,
+      List? admins,
+      List? members,
+      icon = ""}) async {
+    var docReference = await groupCollection.add(Entity.createGroup(
+        username, groupName,
+        admins: admins, members: members, icon: icon));
+    await docReference.update({
+      "groupId": docReference.id,
+    });
+    await addMemberToGroup(docReference, username);
+    return await addGroupToUser(username, docReference.id);
+  }
+
+  Future addMemberToGroup(DocumentReference doc, username) async {
+    await doc.update({
+      "members": FieldValue.arrayUnion(["${uid}_$username"]),
+    });
+  }
+
+  Future addGroupToUser(username, groupId) async {
+    return await userCollection.doc(uid).update({
+      "groups": FieldValue.arrayUnion(["$groupId"]),
+    });
   }
 }

@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                         key: emailKey,
                         focusNode: emailFocus,
                         controller: emailController,
-                        decoration: textInputDecoration.copyWith(
+                        decoration: loginInputDecoration.copyWith(
                           labelText: Strings.email,
                           prefixIcon: emailIcon,
                         ),
@@ -119,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                         key: passwordKey,
                         obscureText: true,
                         controller: passwordController,
-                        decoration: textInputDecoration.copyWith(
+                        decoration: loginInputDecoration.copyWith(
                           labelText: Strings.password,
                           prefixIcon: passwordIcon,
                         ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
 
-
 class GroupPage extends StatefulWidget {
   const GroupPage({super.key});
 
@@ -37,18 +36,18 @@ class _GroupPageState extends State<GroupPage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return SizedBox(
-        width: 100,
-        height: 200,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(80.0),
-            child: Center(
-              child: Column(children: [
-                
-              ]),
-            ),
+      width: 100,
+      height: 200,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Column(children: [
+              const Text("THERE ARE GROUPS HERE!"),
+            ]),
           ),
         ),
+      ),
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/helper_function.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
-import 'package:groupsie/pages/starting_page.dart';
+import 'package:groupsie/pages/home_page.dart';
 import 'package:groupsie/shared/strings.dart';
 
 class BlankPage extends StatefulWidget {
@@ -51,7 +51,7 @@ class _BlankPageState extends State<BlankPage> {
                 ElevatedButton(
                     onPressed: () {
                       HelperFunctions.nextScreenReplacement(
-                          context, const StartingPage());
+                          context, const HomePage());
                     },
                     child: const Text(Strings.retry))
               ]),

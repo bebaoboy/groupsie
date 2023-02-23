@@ -85,7 +85,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         initialValue: info.email,
                         key: emailKey,
                         focusNode: emailFocus,
-                        decoration: textInputDecoration.copyWith(
+                        decoration: loginInputDecoration.copyWith(
                           labelText: Strings.email,
                           prefixIcon: emailIcon,
                         ),
@@ -98,7 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       TextFormField(
                         initialValue: info.username,
-                        decoration: textInputDecoration.copyWith(
+                        decoration: loginInputDecoration.copyWith(
                           labelText: Strings.username,
                           prefixIcon: usernameIcon,
                         ),
@@ -114,7 +114,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         key: passwordKey,
                         focusNode: passwordFocus,
                         obscureText: true,
-                        decoration: textInputDecoration.copyWith(
+                        decoration: loginInputDecoration.copyWith(
                           labelText: Strings.password,
                           prefixIcon: passwordIcon,
                         ),
@@ -128,7 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       TextFormField(
                         obscureText: true,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        decoration: textInputDecoration.copyWith(
+                        decoration: loginInputDecoration.copyWith(
                           labelText: Strings.confirmPassword,
                           prefixIcon: passwordIcon,
                         ),

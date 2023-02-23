@@ -66,7 +66,7 @@ class AuthService {
           .user;
       if (user != null) {
         await DatabaseService(uid: user.uid)
-            .updateUserData(username: username, email: email);
+            .createUserData(username: username, email: email);
         return "true";
       }
       return "false";

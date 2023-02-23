@@ -1,7 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
 import 'package:groupsie/pages/empty_page.dart';
-import 'package:groupsie/shared/constants.dart';
 import 'package:groupsie/shared/strings.dart';
 import 'package:groupsie/style/params.dart';
 
@@ -48,27 +48,33 @@ class _EmptyGroupPageState extends State<EmptyGroupPage> {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: boxSize * 5,
+                    height: boxSize * 6,
                   ),
                   const Text(
                     Strings.emptyGroupPrompt,
                     style: standardTextStyle,
                     textAlign: TextAlign.center,
                   ),
-                  MaterialButton(
-                      minWidth: 158,
-                      color: Constants.mainColor,
-                      textColor: Colors.white,
-                      shape: standardButtonRadius,
-                      onPressed: () {},
-                      child: const Text(Strings.createGroup)),
-                  MaterialButton(
-                      minWidth: 158,
-                      color: Constants.mainColor,
-                      textColor: Colors.white,
-                      shape: standardButtonRadius,
-                      onPressed: () {},
-                      child: const Text(Strings.searchGroup)),
+                  const SizedBox(
+                    height: boxSize * 2,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: !kIsWeb ? 87.0 : 200),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ElevatedButton(
+                              onPressed: () {},
+                              child: const Text(Strings.createGroup)),
+                          const SizedBox(
+                            height: boxSize * 2,
+                          ),
+                          ElevatedButton(
+                              onPressed: () {},
+                              child: const Text(Strings.searchGroup))
+                        ]),
+                  ),
                 ],
               )),
         ]),

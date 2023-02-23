@@ -2,6 +2,8 @@ class Strings {
   static const String appName = "GroupSies";
   static const String appPrompt = "Log in to see what they're chatting about!";
   static const String empty = "Nothing here!";
+  static const String cancel = "Cancel";
+  static const String continueTxt = "Continue";
 
   // Login
   static const String email = "Email";
@@ -44,8 +46,9 @@ class Strings {
   static const String networkError = "No connection!";
 
   static const String emptyGroupPrompt = "You have not joined any group yet!";
-  static const String createGroup = "Create group";
+  static const String createGroup = "Create a group";
   static const String searchGroup = "Search for a group";
+  static const String groupCreatedDone = "Group created successfully!";
 
   // Images
   static const String loginPageImg = "assets/titleImg.png";

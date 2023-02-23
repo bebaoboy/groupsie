@@ -36,7 +36,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool _isSignedIn = false;
   late final subscription;
-  Stream? group;
+  // Stream? groups;
 
   final groupPage = const GroupPage();
 
@@ -150,7 +150,50 @@ class _HomePageState extends State<HomePage> {
             drawer: const HomePageDrawer(),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                createGroupDialog(context);
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text(
+                          Strings.createGroup,
+                          textAlign: TextAlign.center,
+                          style: headerStyle,
+                        ),
+                        content:
+                            Column(mainAxisSize: MainAxisSize.min, children: [
+                          TextField(
+                            onChanged: (value) =>
+                                Global.newGroup.onGroupNameChange(value),
+                            decoration: inputDecoration,
+                          ),
+                        ]),
+                        actions: [
+                          ElevatedButton(
+                              onPressed: () async {
+                                if (Global.newGroup.isEmptyGroupName()) {
+                                } else {
+                                  setState(() {
+                                    Global.isLoading = true;
+                                  });
+                                  Global.newGroup.reset();
+                                  createGroup(
+                                          username: Global.info.username,
+                                          group: Global.newGroup)
+                                      .whenComplete(() {
+                                    setState(() {
+                                      Global.isLoading = false;
+                                    });
+                                  });
+                                  HelperFunctions.lastScreen(context);
+                                  HelperFunctions.showSnackBar(
+                                      context, Constants.doneColor, Strings.groupCreatedDone);
+                                }
+                              },
+                              child: const Text(Strings.continueTxt))
+                        ],
+                        actionsAlignment: MainAxisAlignment.center,
+                      );
+                    });
               },
               backgroundColor: Constants.mainColor,
               child: addIcon,

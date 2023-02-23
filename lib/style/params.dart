@@ -38,12 +38,12 @@ const headerStyle = TextStyle(
 //
 // app bar
 const appBarStyle = TextStyle(
-  fontSize: titleSize * 0.75,
+  fontSize: titleSize * 0.55,
   fontWeight: FontWeight.bold,
   color: Colors.white,
 );
-const tileTextStyle = TextStyle(fontSize: titleSize * 0.60);
-const standardTextStyle = TextStyle(fontSize: titleSize * 0.50);
+const tileTextStyle = TextStyle(fontSize: titleSize * 0.50);
+const standardTextStyle = TextStyle(fontSize: titleSize * 0.4);
 const accountNameStyle =
     TextStyle(fontSize: titleSize * 0.55, fontWeight: FontWeight.bold);
 
@@ -53,9 +53,9 @@ const promptStyle =
     TextStyle(fontSize: titleSize * 0.45, fontWeight: FontWeight.w400);
 
 //
-// input
+// input decoration
 const double inputTextSize = Constants.standardFontSize;
-const textInputDecoration = InputDecoration(
+const loginInputDecoration = InputDecoration(
   errorStyle: TextStyle(fontWeight: FontWeight.bold),
   labelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
   focusedBorder: OutlineInputBorder(
@@ -68,9 +68,22 @@ const textInputDecoration = InputDecoration(
     borderSide: BorderSide(color: Constants.errorColor, width: 3),
   ),
 );
+const inputDecoration = InputDecoration(
+  errorStyle: TextStyle(fontWeight: FontWeight.bold),
+  labelStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Constants.mainColor, width: 1),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Constants.mainColor, width: 1),
+  ),
+  errorBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: Constants.errorColor, width: 1),
+  ),
+);
 
 //
-// login button
+// login
 const loginButtonTextStyle =
     TextStyle(fontSize: inputTextSize * 0.8, fontWeight: FontWeight.w500);
 

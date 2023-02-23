@@ -7,16 +7,38 @@ import 'package:groupsie/pages/group_page.dart';
 import 'package:groupsie/pages/loading_page.dart';
 import 'package:groupsie/service/database_service.dart';
 
-createGroupDialog(BuildContext context) {}
+class Group {
+  String name = "";
+  List<String> members = List.empty();
+  List<String> admins = List.empty();
+  String icon = "";
+
+  onGroupNameChange(name) {
+    this.name = name;
+  }
+
+  isEmptyGroupName() {
+    return name.isEmpty;
+  }
+
+  reset() {
+    name = "";
+    icon = "";
+    members = List.empty();
+    admins = List.empty();
+  }
+}
 
 getGroupList(Stream? group, context) {
   return StreamBuilder(
       stream: group,
       builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
-          log(snapshot.data.data()['username']);
-          if (snapshot.data.data()['groups'] != null &&
+          if (snapshot.data.data() != null &&
+              snapshot.data.data()['groups'] != null &&
               snapshot.data.data()['groups'].length != 0) {
+            //log(snapshot.data.data()['groups']);
+
             return const GroupPage();
           } else {
             return const EmptyGroupPage();
@@ -30,4 +52,14 @@ getGroupList(Stream? group, context) {
 Future getUserGroup() async {
   return await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
       .getUserGroup();
+}
+
+Future createGroup({required String username, required Group group}) async {
+  return await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
+      .createGroup(
+          username: username,
+          groupName: group.name,
+          icon: group.icon,
+          members: group.members,
+          admins: group.admins);
 }
