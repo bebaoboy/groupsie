@@ -54,6 +54,10 @@ class Strings {
   // chatpage
   static const String chat = "Chat";
   static const String startChatting = "Let's say something!";
+  static const String groupName = "Group name";
+  static const String groupID = "Group ID";
+  static const String dateCreated = "Created date";
+  static const String leaveGroup = "Leave group";
 
   // Images
   static const String loginPageImg = "assets/titleImg.png";

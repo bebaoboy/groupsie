@@ -11,7 +11,7 @@ class Entity {
   }
 
   static String groupCollectionName = "Groups";
-  static createGroup(username, groupName,
+  static createGroup(username, groupName, dateCreated,
       {List? admins, List? members, icon = ""}) {
     return {
       "groupId": "",
@@ -21,6 +21,7 @@ class Entity {
       "admins": admins,
       "recentMessage": "",
       "recentMessageSender": "",
+      "dateCreated": dateCreated
     };
   }
 }

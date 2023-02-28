@@ -4,6 +4,9 @@ class Group {
   List<String> members = List.empty();
   List<String> admins = List.empty();
   String icon = "";
+  DateTime dateCreated = DateTime.now();
+  String recentMessage = "";
+  DateTime recentMessageTime = DateTime.now();
 
   Group({this.name = "", this.id = ""});
 

@@ -113,6 +113,7 @@ const registerActionStyle = TextStyle(
 //
 // group
 const double groupIconRadius = 22;
+const double accountIconRadius = 200;
 
 //
 // icons
@@ -123,12 +124,12 @@ const searchIcon = Icon(Icons.search_outlined, color: Colors.white);
 const accountIcon = Icon(
   Icons.account_circle,
   color: Constants.mainColor,
-  size: 100,
+  size: accountIconRadius / 2,
 );
 const accountIconLg = Icon(
   Icons.account_circle,
   color: Constants.mainColor,
-  size: 200,
+  size: accountIconRadius,
 );
 const cancelIcon = Icon(
   Icons.cancel_outlined,

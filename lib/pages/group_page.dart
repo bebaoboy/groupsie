@@ -3,13 +3,12 @@ import 'package:groupsie/helper/group_helper.dart';
 import 'package:groupsie/helper/helper_function.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
 import 'package:groupsie/pages/chat_page.dart';
+import 'package:groupsie/service/database_service.dart';
 import 'package:groupsie/shared/constants.dart';
 import 'package:groupsie/style/params.dart';
 
 class GroupPage extends StatefulWidget {
-  const GroupPage(
-      {super.key,
-      required this.group});
+  const GroupPage({super.key, required this.group});
 
   final Group group;
 
@@ -34,6 +33,14 @@ class _GroupPageState extends State<GroupPage> {
   @override
   void initState() {
     super.initState();
+    getGroupInfo();
+  }
+
+  getGroupInfo() async {
+    final result = await DatabaseService.getGroupData(widget.group.name);
+    if (result.docs.length != 0) {
+      widget.group.dateCreated = result.docs[0]['dateCreated'].toDate();
+    }
   }
 
   @override
@@ -73,17 +80,16 @@ class _GroupPageState extends State<GroupPage> {
           subtitle: Text(widget.group.id),
           splashColor: Constants.secondaryColor,
           leading: CircleAvatar(
-              radius: groupIconRadius,
-              backgroundColor: Constants.mainColor,
-              child: CircleAvatar(
-                  radius: groupIconRadius - 1,
-                  backgroundColor: Colors.white,
-                  child: Text(
-                    widget.group.name.substring(0, 1).toUpperCase(),
-                    textAlign: TextAlign.center,
-                    style: fadedStyle,
-                  )),
-            
+            radius: groupIconRadius,
+            backgroundColor: Constants.mainColor,
+            child: CircleAvatar(
+                radius: groupIconRadius - 1,
+                backgroundColor: Colors.white,
+                child: Text(
+                  widget.group.name.substring(0, 1).toUpperCase(),
+                  textAlign: TextAlign.center,
+                  style: fadedStyle,
+                )),
           ),
         ),
       ),

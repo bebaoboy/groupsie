@@ -48,7 +48,18 @@ class _GroupProfilePageState extends State<GroupProfilePage> {
               padding: const EdgeInsets.symmetric(
                   vertical: vPaddingGroupList * 1.5, horizontal: hPadding),
               children: <Widget>[
-                accountIconLg,
+                CircleAvatar(
+                  radius: accountIconRadius / 2,
+                  backgroundColor: Constants.mainColor,
+                  child: CircleAvatar(
+                      radius: accountIconRadius / 2 - 2,
+                      backgroundColor: Colors.white,
+                      child: Text(
+                        widget.group.name.substring(0, 1).toUpperCase(),
+                        textAlign: TextAlign.center,
+                        style: titleFadedStyle,
+                      )),
+                ),
                 const SizedBox(
                   height: boxSize * 3,
                 ),
@@ -64,7 +75,7 @@ class _GroupProfilePageState extends State<GroupProfilePage> {
                       Expanded(
                         flex: 5,
                         child: Text(
-                          widget.group.name,
+                          Strings.groupName,
                           textAlign: TextAlign.start,
                           style: tileTextStyle,
                         ),
@@ -75,7 +86,7 @@ class _GroupProfilePageState extends State<GroupProfilePage> {
                           fit: BoxFit.scaleDown,
                           alignment: AlignmentDirectional.centerEnd,
                           child: Text(
-                            Global.info.username,
+                            widget.group.name,
                             textAlign: TextAlign.end,
                             style: tileTextStyle,
                           ),
@@ -96,7 +107,7 @@ class _GroupProfilePageState extends State<GroupProfilePage> {
                       const Expanded(
                         flex: 5,
                         child: Text(
-                          Strings.email,
+                          Strings.groupID,
                           textAlign: TextAlign.start,
                           style: tileTextStyle,
                         ),
@@ -107,7 +118,39 @@ class _GroupProfilePageState extends State<GroupProfilePage> {
                           fit: BoxFit.scaleDown,
                           alignment: AlignmentDirectional.centerEnd,
                           child: Text(
-                            Global.info.email,
+                            widget.group.id,
+                            textAlign: TextAlign.end,
+                            style: tileTextStyle,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ListTile(
+                  onTap: () {},
+                  selectedColor: Constants.mainColor,
+                  selected: true,
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: hPaddingTile, vertical: vPaddingTile),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Expanded(
+                        flex: 5,
+                        child: Text(
+                          Strings.dateCreated,
+                          textAlign: TextAlign.start,
+                          style: tileTextStyle,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 5,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: AlignmentDirectional.centerEnd,
+                          child: Text(
+                            widget.group.dateCreated.toString(),
                             textAlign: TextAlign.end,
                             style: tileTextStyle,
                           ),
@@ -123,7 +166,7 @@ class _GroupProfilePageState extends State<GroupProfilePage> {
                         builder: (context) {
                           return AlertDialog(
                             title: const Text(
-                              Strings.logOutPromptTitle,
+                              Strings.leaveGroup,
                               style: headerStyle,
                             ),
                             content: const Text(Strings.logOutPrompt),
@@ -147,7 +190,7 @@ class _GroupProfilePageState extends State<GroupProfilePage> {
                       horizontal: hPaddingTile, vertical: vPaddingTile),
                   leading: logoutIcon,
                   title: const Text(
-                    Strings.logout,
+                    Strings.leaveGroup,
                     style: tileTextStyle,
                   ),
                 ),

@@ -60,8 +60,8 @@ class DatabaseService {
       return Strings.groupExists;
     }
     var docReference = await groupCollection.add(Entity.createGroup(
-        username, groupName,
-        admins: admins, members: members, icon: icon));
+        username, groupName, DateTime.now(),
+        admins: admins, members: members, icon: icon, ));
     await docReference.update({
       "groupId": docReference.id,
     });

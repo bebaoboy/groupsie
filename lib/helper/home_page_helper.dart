@@ -28,7 +28,7 @@ getGroupList(Stream? group, context) {
                     group: Group(
                       id: getGroupId(
                         snapshot.data.data()['groups'][index]), 
-                        name: getGroupName(snapshot.data.data()['groups'][index]),
+                      name: getGroupName(snapshot.data.data()['groups'][index]),
                         ));
                 });
           } else {
