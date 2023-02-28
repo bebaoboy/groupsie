@@ -130,9 +130,9 @@ class _HomePageState extends State<HomePage> {
             ),
             body: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 60.0),
+                padding: const EdgeInsets.symmetric(vertical: 30.0),
                 child: Column(children: <Widget>[
-                  Center(child: const NetworkErrorPage()),
+                  const Center(child: NetworkErrorPage()),
                   // const Text(Strings.homepage),
                   // ElevatedButton(
                   //     onPressed: () {

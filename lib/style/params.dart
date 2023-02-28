@@ -29,6 +29,11 @@ const titleFadedStyle = TextStyle(
   fontWeight: FontWeight.bold,
   color: Constants.fadedColor,
 );
+const fadedStyle = TextStyle(
+  fontSize: titleSize * 0.6,
+  fontWeight: FontWeight.bold,
+  color: Constants.fadedColor,
+);
 const headerStyle = TextStyle(
   fontSize: titleSize * 0.5,
   fontWeight: FontWeight.bold,
@@ -106,6 +111,10 @@ const registerActionStyle = TextStyle(
 );
 
 //
+// group
+const double groupIconRadius = 22;
+
+//
 // icons
 const emailIcon = Icon(Icons.email_rounded, color: Constants.mainColor);
 const passwordIcon = Icon(Icons.lock_clock_rounded, color: Constants.mainColor);
@@ -138,3 +147,4 @@ const addIcon = Icon(
 const groupIcon = Icon(Icons.group_outlined);
 const logoutIcon = Icon(Icons.logout_outlined);
 const profileIcon = Icon(Icons.account_box_outlined);
+const infoIcon = Icon(Icons.info_outlined);

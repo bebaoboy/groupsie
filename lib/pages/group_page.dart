@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:groupsie/helper/group_helper.dart';
+import 'package:groupsie/helper/helper_function.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
+import 'package:groupsie/pages/chat_page.dart';
+import 'package:groupsie/shared/constants.dart';
 import 'package:groupsie/style/params.dart';
 
 class GroupPage extends StatefulWidget {
   const GroupPage(
       {super.key,
-      required this.groupId,
-      required this.groupName,
-      required this.username});
+      required this.group});
 
-  final String groupName;
-  final String groupId;
-  final String username;
+  final Group group;
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -54,14 +54,38 @@ class _GroupPageState extends State<GroupPage> {
     //     ),
     //   ),
     // );
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ListTile(
-        title: Text(
-          widget.groupName,
-          style: accountNameStyle,
+    return GestureDetector(
+      onTap: () {
+        HelperFunctions.nextScreen(
+            context,
+            ChatPage(
+              group: widget.group,
+            ));
+      },
+      onLongPress: () {},
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+        child: ListTile(
+          title: Text(
+            widget.group.name,
+            style: accountNameStyle,
+          ),
+          subtitle: Text(widget.group.id),
+          splashColor: Constants.secondaryColor,
+          leading: CircleAvatar(
+              radius: groupIconRadius,
+              backgroundColor: Constants.mainColor,
+              child: CircleAvatar(
+                  radius: groupIconRadius - 1,
+                  backgroundColor: Colors.white,
+                  child: Text(
+                    widget.group.name.substring(0, 1).toUpperCase(),
+                    textAlign: TextAlign.center,
+                    style: fadedStyle,
+                  )),
+            
+          ),
         ),
-        subtitle: Text(widget.groupId),
       ),
     );
   }

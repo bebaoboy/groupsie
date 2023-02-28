@@ -7,6 +7,7 @@ class Constants {
   static String projectId = "groupsie-chatapp";
 
   static const Color mainColor = Colors.indigo;
+  static const Color secondaryColor = Colors.blueGrey;
   static const Color errorColor = Colors.red;
   static const Color doneColor = Colors.green;
   static const Color fadedColor = Colors.grey;

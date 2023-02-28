@@ -51,6 +51,9 @@ class Strings {
   static const String groupCreatedDone = "Group created successfully!";
   static const String groupExists = "Group already exists!";
 
+  // chatpage
+  static const String chat = "Chat";
+  static const String startChatting = "Let's say something!";
 
   // Images
   static const String loginPageImg = "assets/titleImg.png";

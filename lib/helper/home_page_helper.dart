@@ -2,33 +2,13 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:groupsie/helper/group_helper.dart';
 import 'package:groupsie/pages/empty_group_page.dart';
 import 'package:groupsie/pages/group_page.dart';
 import 'package:groupsie/pages/loading_page.dart';
 import 'package:groupsie/service/database_service.dart';
 import 'package:groupsie/shared/global.dart';
 
-class Group {
-  String name = "";
-  List<String> members = List.empty();
-  List<String> admins = List.empty();
-  String icon = "";
-
-  onGroupNameChange(name) {
-    this.name = name;
-  }
-
-  isEmptyGroupName() {
-    return name.isEmpty;
-  }
-
-  reset() {
-    name = "";
-    icon = "";
-    members = List.empty();
-    admins = List.empty();
-  }
-}
 
 getGroupList(Stream? group, context) {
   return StreamBuilder(
@@ -45,10 +25,11 @@ getGroupList(Stream? group, context) {
                 itemCount: snapshot.data.data()['groups'].length,
                 itemBuilder: (context, index) {
                   return GroupPage(
-                      groupId: getGroupId(
+                    group: Group(
+                      id: getGroupId(
                         snapshot.data.data()['groups'][index]), 
-                        groupName: getGroupName(snapshot.data.data()['groups'][index]),
-                        username: Global.info.username,);
+                        name: getGroupName(snapshot.data.data()['groups'][index]),
+                        ));
                 });
           } else {
             return const EmptyGroupPage();
