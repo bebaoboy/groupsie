@@ -7,8 +7,8 @@ import 'package:groupsie/pages/empty_group_page.dart';
 import 'package:groupsie/pages/group_page.dart';
 import 'package:groupsie/pages/loading_page.dart';
 import 'package:groupsie/service/database_service.dart';
-import 'package:groupsie/shared/global.dart';
-
+import 'package:groupsie/shared/constants.dart';
+import 'package:groupsie/style/params.dart';
 
 getGroupList(Stream? group, context) {
   return StreamBuilder(
@@ -25,11 +25,10 @@ getGroupList(Stream? group, context) {
                 itemCount: snapshot.data.data()['groups'].length,
                 itemBuilder: (context, index) {
                   return GroupPage(
-                    group: Group(
-                      id: getGroupId(
-                        snapshot.data.data()['groups'][index]), 
-                      name: getGroupName(snapshot.data.data()['groups'][index]),
-                        ));
+                      group: Group(
+                    id: getGroupId(snapshot.data.data()['groups'][index]),
+                    name: getGroupName(snapshot.data.data()['groups'][index]),
+                  ));
                 });
           } else {
             return const EmptyGroupPage();
@@ -61,4 +60,42 @@ Future createGroup({required String username, required Group group}) async {
           icon: group.icon,
           members: group.members,
           admins: group.admins);
+}
+
+groupAdminParser(List<String> s) {
+  List<String> newS = [];
+  for (var i in s) {
+    newS.add(getAdminName(i));
+  }
+  return newS;
+}
+
+String getAdminName(s) {
+  return s.split("_")[1];
+}
+
+getAdmins(List<String> admins, context, {text = "admin"}) {
+  return StreamBuilder(
+      stream: Stream.fromIterable(admins),
+      builder: (context, snapshot) {
+        //log(snapshot.data.data()['groups']);
+        return ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: admins.length,
+            itemBuilder: (context, index) {
+              return Container(
+                alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: groupIconRadius * 0.8,
+                      backgroundColor: Constants.mainColor,
+                      child: Text(getAdminName(admins[index]).substring(0, 1)),
+                    ),
+                    title: Text(getAdminName(admins[index])),
+                  ),
+              );
+            });
+      });
 }

@@ -48,6 +48,7 @@ const appBarStyle = TextStyle(
   color: Colors.white,
 );
 const tileTextStyle = TextStyle(fontSize: titleSize * 0.50);
+const smallTileTextStyle = TextStyle(fontSize: titleSize * 0.38, fontWeight: FontWeight.w600);
 const standardTextStyle = TextStyle(fontSize: titleSize * 0.4);
 const accountNameStyle =
     TextStyle(fontSize: titleSize * 0.55, fontWeight: FontWeight.bold);

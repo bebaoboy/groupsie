@@ -40,6 +40,9 @@ class _GroupPageState extends State<GroupPage> {
     final result = await DatabaseService.getGroupData(widget.group.name);
     if (result.docs.length != 0) {
       widget.group.dateCreated = result.docs[0]['dateCreated'].toDate();
+      widget.group.admins = List<String>.from(result.docs[0]['admins']);
+      widget.group.members = List<String>.from(result.docs[0]['members']);
+      // widget.group.snapshot = result;
     }
   }
 

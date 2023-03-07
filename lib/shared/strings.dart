@@ -58,6 +58,8 @@ class Strings {
   static const String groupID = "Group ID";
   static const String dateCreated = "Created date";
   static const String leaveGroup = "Leave group";
+  static const String admin = "Admins";
+  static const String member = "Members";
 
   // Images
   static const String loginPageImg = "assets/titleImg.png";

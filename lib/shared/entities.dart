@@ -24,4 +24,14 @@ class Entity {
       "dateCreated": dateCreated
     };
   }
+
+  static String messageCollectionName = "Messages";
+  static createMessage(username, message, dateCreated,
+      {List? admins, List? members, icon = ""}) {
+    return {
+      "message": message,
+      "sender": username,
+      "time": dateCreated
+    };
+  }
 }

@@ -34,13 +34,11 @@ class DatabaseService {
   }
 
   static Future getGroupData(String groupName) async {
-    QuerySnapshot snapshot;
-    snapshot = await groupCollection.where("groupName", whereIn: [
+    return await groupCollection.where("groupName", whereIn: [
       groupName.toLowerCase(),
       groupName,
       groupName.toUpperCase()
     ]).get();
-    return snapshot;
   }
 
   // getting user group
@@ -60,8 +58,13 @@ class DatabaseService {
       return Strings.groupExists;
     }
     var docReference = await groupCollection.add(Entity.createGroup(
-        username, groupName, DateTime.now(),
-        admins: admins, members: members, icon: icon, ));
+      username,
+      groupName,
+      DateTime.now(),
+      admins: admins,
+      members: members,
+      icon: icon,
+    ));
     await docReference.update({
       "groupId": docReference.id,
     });
@@ -85,5 +88,13 @@ class DatabaseService {
     return await userCollection.doc(uid).update({
       "groups": FieldValue.arrayUnion(["${groupId}_$groupName"]),
     });
+  }
+
+  Future getChat(groupId) async {
+    return groupCollection
+        .doc(groupId)
+        .collection(Entity.messageCollectionName)
+        .orderBy("time")
+        .snapshots();
   }
 }

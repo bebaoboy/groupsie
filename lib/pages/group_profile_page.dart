@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:groupsie/helper/group_helper.dart';
 import 'package:groupsie/helper/helper_function.dart';
+import 'package:groupsie/helper/home_page_helper.dart';
 import 'package:groupsie/shared/constants.dart';
 import 'package:groupsie/shared/global.dart';
 import 'package:groupsie/shared/strings.dart';
 import 'package:groupsie/style/params.dart';
+import 'package:intl/intl.dart';
 
 class GroupProfilePage extends StatefulWidget {
   const GroupProfilePage({super.key, required this.group});
@@ -72,12 +74,12 @@ class _GroupProfilePageState extends State<GroupProfilePage> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
+                      const Expanded(
                         flex: 5,
                         child: Text(
                           Strings.groupName,
                           textAlign: TextAlign.start,
-                          style: tileTextStyle,
+                          style: smallTileTextStyle,
                         ),
                       ),
                       Expanded(
@@ -109,7 +111,7 @@ class _GroupProfilePageState extends State<GroupProfilePage> {
                         child: Text(
                           Strings.groupID,
                           textAlign: TextAlign.start,
-                          style: tileTextStyle,
+                          style: smallTileTextStyle,
                         ),
                       ),
                       Expanded(
@@ -139,9 +141,76 @@ class _GroupProfilePageState extends State<GroupProfilePage> {
                       const Expanded(
                         flex: 5,
                         child: Text(
+                          Strings.admin,
+                          textAlign: TextAlign.start,
+                          style: smallTileTextStyle,
+                        ),
+                      ),
+                      // Expanded(
+                      //   flex: 5,
+                      //   child: FittedBox(
+                      //     fit: BoxFit.scaleDown,
+                      //     alignment: AlignmentDirectional.centerEnd,
+                      //     child: Text(
+                      //       groupAdminParser(widget.group.admins).join("; "),
+                      //       textAlign: TextAlign.end,
+                      //       style: tileTextStyle,
+                      //     ),
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ),
+                getAdmins(widget.group.admins, context),
+                ListTile(
+                  onTap: () {},
+                  selectedColor: Constants.mainColor,
+                  selected: true,
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: hPaddingTile, vertical: vPaddingTile),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Expanded(
+                        flex: 5,
+                        child: Text(
+                          Strings.member,
+                          textAlign: TextAlign.start,
+                          style: smallTileTextStyle,
+                        ),
+                      ),
+                      // Expanded(
+                      //   flex: 5,
+                      //   child: FittedBox(
+                      //     fit: BoxFit.scaleDown,
+                      //     alignment: AlignmentDirectional.centerEnd,
+                      //     child: Text(
+                      //       groupAdminParser(widget.group.members).join("; "),
+                      //       textAlign: TextAlign.end,
+                      //       style: tileTextStyle,
+                      //     ),
+                      //   ),
+                      // ),
+                      
+                    ],
+                  ),
+                ),
+                getAdmins(widget.group.members, context, text: "members"),
+                ListTile(
+                  onTap: () {},
+                  selectedColor: Constants.mainColor,
+                  selected: true,
+                  contentPadding: const EdgeInsets.symmetric(
+                      horizontal: hPaddingTile, vertical: vPaddingTile),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Expanded(
+                        flex: 5,
+                        child: Text(
                           Strings.dateCreated,
                           textAlign: TextAlign.start,
-                          style: tileTextStyle,
+                          style: smallTileTextStyle,
                         ),
                       ),
                       Expanded(
@@ -150,7 +219,7 @@ class _GroupProfilePageState extends State<GroupProfilePage> {
                           fit: BoxFit.scaleDown,
                           alignment: AlignmentDirectional.centerEnd,
                           child: Text(
-                            widget.group.dateCreated.toString(),
+                            DateFormat('yyyy-MM-dd').format(widget.group.dateCreated),
                             textAlign: TextAlign.end,
                             style: tileTextStyle,
                           ),

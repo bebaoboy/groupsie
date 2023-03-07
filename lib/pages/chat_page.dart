@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:groupsie/helper/chat_helper.dart';
 import 'package:groupsie/helper/group_helper.dart';
 import 'package:groupsie/helper/helper_function.dart';
 import 'package:groupsie/helper/login_page_helper.dart';
 import 'package:groupsie/pages/group_profile_page.dart';
 import 'package:groupsie/shared/constants.dart';
-import 'package:groupsie/shared/strings.dart';
 import 'package:groupsie/style/params.dart';
 
 class ChatPage extends StatefulWidget {
@@ -32,6 +32,13 @@ class _ChatPageState extends State<ChatPage> {
   @override
   void initState() {
     super.initState();
+    getChatList();
+  }
+
+  getChatList() async {
+    await getChats(widget.group.id).then((value) {
+      //widget.group.messages = List<String>.from(value);
+    });
   }
 
   @override
@@ -61,7 +68,7 @@ class _ChatPageState extends State<ChatPage> {
           padding: const EdgeInsets.all(10.0),
           child: Center(
             child: Column(children: [
-              Text(Strings.startChatting),
+              //Text("${Strings.startChatting}\nThere is: ${widget.group.messages!.length}messages in here"),
               // ElevatedButton(
               //     onPressed: () {
               //       HelperFunctions.nextScreenReplacement(

@@ -3,12 +3,13 @@ class Group {
   String id = "";
   List<String> members = List.empty();
   List<String> admins = List.empty();
+  List<String>? messages = List.empty();
   String icon = "";
   DateTime dateCreated = DateTime.now();
   String recentMessage = "";
   DateTime recentMessageTime = DateTime.now();
 
-  Group({this.name = "", this.id = ""});
+  Group({this.name = "", this.id = "", this.messages});
 
   onGroupNameChange(name) {
     this.name = name;
